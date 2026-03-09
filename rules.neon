@@ -1,0 +1,4 @@
+includes:
+    - config/common.neon
+    - config/controller.neon
+    - config/coala.neon
