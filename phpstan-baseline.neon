@@ -1,0 +1,109 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder\:\:root\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder and ''getRootNode'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Parameter \#1 \$baseApi \(Coala\\TestingBundle\\Tests\\Base\\Api\\BaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractBaseApi\:\:setBaseApi\(\) should be compatible with parameter \$baseApi \(Coala\\TestingBundle\\Tests\\Base\\Api\\ReactBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\Api\:\:setBaseApi\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: src/Tests/Base/Api/AbstractBaseApi.php
+
+		-
+			message: '#^Return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractBaseApi\:\:setBaseApi\(\) should be compatible with return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractReactBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\Api\:\:setBaseApi\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Tests/Base/Api/AbstractBaseApi.php
+
+		-
+			message: '#^Return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\BaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractBaseApi\:\:getBaseApi\(\) should be compatible with return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\ReactBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\Api\:\:getBaseApi\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Tests/Base/Api/AbstractBaseApi.php
+
+		-
+			message: '#^Parameter \#1 \$baseApi \(Coala\\TestingBundle\\Tests\\Base\\Api\\BaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractExtjsBaseApi\:\:setBaseApi\(\) should be compatible with parameter \$baseApi \(Coala\\TestingBundle\\Tests\\Base\\Api\\ReactBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\Api\:\:setBaseApi\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: src/Tests/Base/Api/AbstractExtjsBaseApi.php
+
+		-
+			message: '#^Property Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractExtjsBaseApi\:\:\$baseApi \(Coala\\TestingBundle\\Tests\\Base\\Api\\ExtjsBaseApi\) does not accept Coala\\TestingBundle\\Tests\\Base\\Api\\BaseApi\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/Tests/Base/Api/AbstractExtjsBaseApi.php
+
+		-
+			message: '#^Return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractExtjsBaseApi\|Coala\\TestingBundle\\Tests\\Base\\Api\\ExtjsBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractExtjsBaseApi\:\:setBaseApi\(\) should be compatible with return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractReactBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\Api\:\:setBaseApi\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Tests/Base/Api/AbstractExtjsBaseApi.php
+
+		-
+			message: '#^Return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\ExtjsBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\AbstractExtjsBaseApi\:\:getBaseApi\(\) should be compatible with return type \(Coala\\TestingBundle\\Tests\\Base\\Api\\ReactBaseApi\) of method Coala\\TestingBundle\\Tests\\Base\\Api\\Api\:\:getBaseApi\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: src/Tests/Base/Api/AbstractExtjsBaseApi.php
+
+		-
+			message: '#^Method Coala\\TestingBundle\\Tests\\Base\\Api\\ReactBaseApi\:\:getRouter\(\) should return Symfony\\Bundle\\FrameworkBundle\\Routing\\Router but returns Symfony\\Component\\Routing\\RouterInterface\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Tests/Base/Api/ReactBaseApi.php
+
+		-
+			message: '#^Method Coala\\TestingBundle\\Tests\\BaseTest\:\:getEm\(\) should return Doctrine\\ORM\\EntityManagerInterface but returns doctrine\.orm\.entity_manager\.$#'
+			identifier: return.type
+			count: 1
+			path: src/Tests/BaseTest.php
+
+		-
+			message: '#^Method Coala\\TestingBundle\\Tests\\BaseTest\:\:loadFixtures\(\) invoked with 1 parameter, 2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: src/Tests/BaseTest.php
+
+		-
+			message: '#^PHPDoc tag @return with type object is not subtype of native type Doctrine\\ORM\\EntityManagerInterface\.$#'
+			identifier: return.phpDocType
+			count: 1
+			path: src/Tests/BaseTest.php
+
+		-
+			message: '#^Parameter \#1 \$serviceId of static method Coala\\TestingBundle\\Tests\\BaseTest\:\:getService\(\) expects class\-string\<doctrine\.orm\.entity_manager\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Tests/BaseTest.php
+
+		-
+			message: '#^Parameter \#1 \$serviceId of static method Coala\\TestingBundle\\Tests\\BaseTest\:\:getService\(\) expects class\-string\<router\>, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Tests/BaseTest.php
+
+		-
+			message: '#^Trait Coala\\TestingBundle\\Tests\\Helpers\\AssertionHelpersTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Tests/Helpers/AssertionHelpersTrait.php
+
+		-
+			message: '#^Trait Coala\\TestingBundle\\Tests\\Helpers\\ExtjsTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Tests/Helpers/ExtjsTrait.php
+
+		-
+			message: '#^Trait Coala\\TestingBundle\\Tests\\Helpers\\ObjectToArrayTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: src/Tests/Helpers/ObjectToArrayTrait.php

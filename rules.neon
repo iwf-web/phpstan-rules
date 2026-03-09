@@ -1,0 +1,60 @@
+parametersSchema:
+    coala: structure([
+        controllerNamespace: string()
+        excludedNamespaces: listOf(string())
+        excludedControllers: listOf(string())
+        requiredUseAliases: listOf(structure([
+            namespace: string()
+            alias: string()
+        ]))
+    ])
+
+parameters:
+    coala:
+        controllerNamespace: 'App\Controller'
+        excludedNamespaces: []
+        excludedControllers:
+            - 'App\Controller\Api\Security\LoginController'
+        requiredUseAliases:
+            - { namespace: 'Doctrine\ORM\Mapping', alias: 'ORM' }
+            - { namespace: 'OpenApi\Attributes', alias: 'OA' }
+            - { namespace: 'Coala\OpenApiContracts', alias: 'CoalaOA' }
+            - { namespace: 'Coala\ModelMappingBundle\Annotation', alias: 'ModelMapping' }
+            - { namespace: 'Symfony\Component\Validator\Constraints', alias: 'Assert' }
+            - { namespace: 'Symfony\Component\Serializer\Attribute', alias: 'Serializer' }
+
+services:
+    -
+        class: Coala\TestingBundle\PHPStan\Rules\ControllerHandleReturnTypeRule
+        arguments:
+            controllerNamespace: %coala.controllerNamespace%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: Coala\TestingBundle\PHPStan\Rules\ControllerIsGrantedRule
+        arguments:
+            controllerNamespace: %coala.controllerNamespace%
+            excludedNamespaces: %coala.excludedNamespaces%
+            excludedControllers: %coala.excludedControllers%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: Coala\TestingBundle\PHPStan\Rules\NoAnnotationAsAttributeRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: Coala\TestingBundle\PHPStan\Rules\RequiredUseAliasRule
+        arguments:
+            requiredUseAliases: %coala.requiredUseAliases%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: Coala\TestingBundle\PHPStan\Rules\RequiredUseAliasGroupUseRule
+        arguments:
+            requiredUseAliases: %coala.requiredUseAliases%
+        tags:
+            - phpstan.rules.rule

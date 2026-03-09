@@ -1,0 +1,68 @@
+{
+    "name": "iwf-web/phpstan-rules",
+    "description": "Custom rules for PHPStan for applications developed by IWF",
+    "type": "library",
+    "keywords": [
+        "phpstan",
+        "rules",
+        "coding-standard",
+        "ruleset"
+    ],
+    "homepage": "https://github.com/iwf-web/phpstan-rules",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "D3strukt0r",
+            "email": "dev@d3strukt0r.dev",
+            "homepage": "https://github.com/D3strukt0r",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "email": "developer@iwf.ch",
+        "issues": "https://github.com/iwf-web/phpstan-rules/issues",
+        "forum": "https://github.com/iwf-web/phpstan-rules/discussions",
+        "wiki": "https://github.com/iwf-web/phpstan-rules/wiki",
+        "source": "https://github.com/iwf-web/phpstan-rules",
+        "docs": "https://github.com/iwf-web/phpstan-rules/blob/main/README.md"
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "rector/rector": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "IWF\\RectorRules\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "rules.neon"
+            ]
+        }
+    },
+    "archive": {
+        "exclude": [
+            ".devcontainer",
+            ".github",
+            ".vscode",
+            ".editorconfig",
+            ".gitignore",
+            ".gitattributes",
+            "CODEOWNERS",
+            "*.md",
+            "*.dist.php",
+            "*release*.json",
+            "!README.md",
+            "!CHANGELOG.md"
+        ]
+    }
+}
