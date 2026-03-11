@@ -1,8 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/**
+ * PHPStan Rules
+ *
+ * @package   PHPStan Rules
+ * @author    IWF Web Solutions <web-solutions@iwf.ch>
+ * @copyright Copyright (c) 2025-2026 IWF Web Solutions <web-solutions@iwf.ch>
+ * @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
+ * @link      https://github.com/iwf-web/phpstan-rules
+ */
 
-namespace Coala\TestingBundle\PHPStan\Rules;
+namespace IWF\RectorRules\Controller;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
@@ -22,15 +30,15 @@ final class ControllerIsGrantedRule implements Rule
 {
     use ControllerRuleHelperTrait;
 
-    public const IDENTIFIER = 'coala.controllerMissingIsGranted';
-    private const IS_GRANTED_ATTRIBUTE = 'Symfony\Component\Security\Http\Attribute\IsGranted';
+    public const string IDENTIFIER = 'iwf.controllerMissingIsGranted';
+    private const string IS_GRANTED_ATTRIBUTE = 'Symfony\Component\Security\Http\Attribute\IsGranted';
 
     /**
      * @param list<string> $excludedNamespaces  Namespace prefixes to skip
      * @param list<string> $excludedControllers Fully-qualified class names to skip
      */
     public function __construct(
-        private readonly string $controllerNamespace = 'App\\Controller',
+        private readonly string $controllerNamespace = 'App\Controller',
         private readonly array $excludedNamespaces = [],
         private readonly array $excludedControllers = [],
     ) {}
@@ -44,6 +52,7 @@ final class ControllerIsGrantedRule implements Rule
      * @param Class_ $node
      *
      * @return list<IdentifierRuleError>
+     *
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
@@ -61,7 +70,7 @@ final class ControllerIsGrantedRule implements Rule
             return [];
         }
 
-        $fqcn = $namespace . '\\' . $node->name->toString();
+        $fqcn = $namespace.'\\'.$node->name->toString();
 
         if ($this->isExcluded($fqcn)) {
             return [];
@@ -86,7 +95,7 @@ final class ControllerIsGrantedRule implements Rule
                 continue;
             }
 
-            $message = sprintf(
+            $message = \sprintf(
                 'Controller method %s::%s() has a #[Route] attribute but no #[IsGranted] attribute.',
                 $node->name->toString(),
                 $method->name->toString(),
@@ -96,14 +105,15 @@ final class ControllerIsGrantedRule implements Rule
                 ->identifier(self::IDENTIFIER)
                 ->line($method->getStartLine())
                 ->tip('Add #[IsGranted(\'PERMISSION_KEY\')] to the method or class to enforce authorization.')
-                ->build();
+                ->build()
+            ;
         }
 
         return $errors;
     }
 
     /**
-     * @param list<Node\AttributeGroup> $attrGroups
+     * @param array<Node\AttributeGroup> $attrGroups
      */
     private function hasIsGrantedAttribute(array $attrGroups): bool
     {
@@ -120,7 +130,7 @@ final class ControllerIsGrantedRule implements Rule
 
     private function isExcluded(string $fqcn): bool
     {
-        if (in_array($fqcn, $this->excludedControllers, true)) {
+        if (\in_array($fqcn, $this->excludedControllers, true)) {
             return true;
         }
 

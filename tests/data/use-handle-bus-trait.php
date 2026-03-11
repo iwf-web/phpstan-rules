@@ -1,0 +1,37 @@
+<?php /** @noinspection ALL */ declare(strict_types=1);
+
+namespace App\Controller\HandleBusTrait;
+
+use Coala\MessengerBundle\Messenger\HandleCommandBusTrait;
+use Coala\MessengerBundle\Messenger\HandleQueryBusTrait;
+
+class MissingCommandBusTrait // @error iwf.useHandleBusTrait
+{
+    public function setCommandBus(object $bus): void
+    {
+        // defined manually without the trait
+    }
+}
+
+class MissingQueryBusTrait // @error iwf.useHandleBusTrait
+{
+    public function setQueryBus(object $bus): void
+    {
+        // defined manually without the trait
+    }
+}
+
+class WithCommandBusTrait
+{
+    use HandleCommandBusTrait;
+}
+
+class WithQueryBusTrait
+{
+    use HandleQueryBusTrait;
+}
+
+class NoSetter
+{
+    public function doSomething(): void {}
+}

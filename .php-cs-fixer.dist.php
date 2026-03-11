@@ -10,9 +10,9 @@ use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 $year = date('Y');
 $header = <<<EOF
-    PHP Coding Standard
+    PHPStan Rules
 
-    @package   PHP Coding Standard
+    @package   PHPStan Rules
     @author    IWF Web Solutions <web-solutions@iwf.ch>
     @copyright Copyright (c) 2025-{$year} IWF Web Solutions <web-solutions@iwf.ch>
     @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
@@ -31,6 +31,7 @@ return (new Config())
         ->ignoreDotFiles(false)
         ->ignoreVCSIgnored(true)
         ->notPath('.php-cs-fixer.dist.php')
+        ->notPath(__DIR__ . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'data')
     )
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setUnsupportedPhpVersionAllowed(true)

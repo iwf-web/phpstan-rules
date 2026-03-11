@@ -1,45 +1,55 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/**
+ * PHPStan Rules
+ *
+ * @package   PHPStan Rules
+ * @author    IWF Web Solutions <web-solutions@iwf.ch>
+ * @copyright Copyright (c) 2025-2026 IWF Web Solutions <web-solutions@iwf.ch>
+ * @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
+ * @link      https://github.com/iwf-web/phpstan-rules
+ */
 
-namespace Coala\TestingBundle\Tests\PHPStan\Rules;
+namespace IWF\RectorRules\Tests;
 
-use Coala\TestingBundle\PHPStan\Rules\ControllerIsGrantedRule;
+use IWF\RectorRules\Controller\ControllerIsGrantedRule;
 use PHPStan\Rules\Rule;
 
 /**
  * @extends AbstractRuleTestCase<ControllerIsGrantedRule>
+ *
+ * @internal
  */
-class ControllerIsGrantedRuleTest extends AbstractRuleTestCase
+final class ControllerIsGrantedRuleTest extends AbstractRuleTestCase
 {
     protected function getRule(): Rule
     {
         return new ControllerIsGrantedRule(
-            'App\\Controller',
-            excludedControllers: ['App\\Controller\\Api\\Security\\LoginController'],
+            'App\Controller',
+            excludedControllers: ['App\Controller\Api\Security\LoginController'],
         );
     }
 
     public function testMissingIsGranted(): void
     {
-        $files = [__DIR__ . '/data/controller-is-granted.php'];
+        $files = [__DIR__.'/data/controller-is-granted.php'];
         $errors = $this->gatherAnalyserErrors($files);
         self::assertRuleErrors($errors, [
-            ['identifier' => ControllerIsGrantedRule::IDENTIFIER, 'line' => 30],
-            ['identifier' => ControllerIsGrantedRule::IDENTIFIER, 'line' => 44],
+            ['identifier' => ControllerIsGrantedRule::IDENTIFIER, 'line' => 28],
+            ['identifier' => ControllerIsGrantedRule::IDENTIFIER, 'line' => 42],
         ]);
     }
 
     public function testExcludedControllerIsIgnored(): void
     {
-        $files = [__DIR__ . '/data/controller-is-granted-excluded.php'];
+        $files = [__DIR__.'/data/controller-is-granted-excluded.php'];
         $errors = $this->gatherAnalyserErrors($files);
         self::assertNoRuleErrors($errors);
     }
 
     public function testAbstractControllerIsIgnored(): void
     {
-        $files = [__DIR__ . '/data/controller-is-granted-abstract.php'];
+        $files = [__DIR__.'/data/controller-is-granted-abstract.php'];
         $errors = $this->gatherAnalyserErrors($files);
         self::assertNoRuleErrors($errors);
     }

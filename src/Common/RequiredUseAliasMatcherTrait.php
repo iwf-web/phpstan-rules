@@ -1,8 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/**
+ * PHPStan Rules
+ *
+ * @package   PHPStan Rules
+ * @author    IWF Web Solutions <web-solutions@iwf.ch>
+ * @copyright Copyright (c) 2025-2026 IWF Web Solutions <web-solutions@iwf.ch>
+ * @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
+ * @link      https://github.com/iwf-web/phpstan-rules
+ */
 
-namespace Coala\TestingBundle\PHPStan\Rules;
+namespace IWF\RectorRules\Common;
 
 use PhpParser\Node\UseItem;
 use PHPStan\Rules\RuleError;
@@ -15,15 +23,15 @@ trait RequiredUseAliasMatcherTrait
     private array $aliasByNamespace;
 
     /**
-     * @param list<array{namespace: string, alias: string}> $requiredUseAliases
+     * @param list<array{namespace: string, alias: string}> $aliasDefinitions
      *
      * @return array<string, string>
      */
-    private function buildAliasByNamespace(array $requiredUseAliases): array
+    private function buildAliasByNamespace(array $aliasDefinitions): array
     {
         $map = [];
 
-        foreach ($requiredUseAliases as $entry) {
+        foreach ($aliasDefinitions as $entry) {
             $map[$entry['namespace']] = $entry['alias'];
         }
 
@@ -54,7 +62,7 @@ trait RequiredUseAliasMatcherTrait
             return null;
         }
 
-        $message = sprintf(
+        $message = \sprintf(
             'Use statement for "%s" must use alias "%s", found "%s".',
             $fqn,
             $requiredAlias,
@@ -64,7 +72,8 @@ trait RequiredUseAliasMatcherTrait
         return RuleErrorBuilder::message($message)
             ->identifier(self::IDENTIFIER)
             ->line($use->getStartLine())
-            ->tip(sprintf('Use: use %s as %s;', $fqn, $requiredAlias))
-            ->build();
+            ->tip(\sprintf('Use: use %s as %s;', $fqn, $requiredAlias))
+            ->build()
+        ;
     }
 }

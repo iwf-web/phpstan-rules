@@ -1,11 +1,35 @@
-# IWF PHP Coding Standard
+# IWF PHPStan Rules
 
-Custom PHP-CS-Fixer rule sets for consistent code style across IWF projects.
+Custom PHPStan rules used across IWF projects.
 
 [![License](https://img.shields.io/github/license/iwf-web/phpstan-rules)][license]
 [![Version](https://img.shields.io/packagist/v/iwf-web/phpstan-rules?label=latest%20release)][packagist]
 [![Version (including pre-releases)](https://img.shields.io/packagist/v/iwf-web/phpstan-rules?include_prereleases&label=latest%20pre-release)][packagist]
 [![Downloads on Packagist](https://img.shields.io/packagist/dt/iwf-web/phpstan-rules)][packagist]
+
+---
+
+# TODO!!!
+
+- Rule: force date_provider usage
+  - if using `Coala\DateProviderBundle`
+  - and using `DateTimeInterface Implementation`, `time()`, `date()` etc not with a datetime string
+    - Also static `::createFromImmutable` and `::createFromMutable` need to be detected
+  - fail and suggest using the `\Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface::class`
+  
+- Rule: Attribute Requirements (Attribute can not be used stand-alone)
+  - Config as associative array Attribute → Attributes[]
+  - Route => [`OA\Tag`, `IsGranted`, `CoalaOA\Response`]
+
+- Rule: Use `HandleQueryBusTrait` / `HandleCommandBusTrait` / `HandleMessageBusTrait`
+  - if using `Coala\MessengerBundle`
+
+- Rule: Use invalid-data-test Group attribute
+  - if using `Coala\TestingBundle`
+  - method with prefix test or Test attrib
+  - call of `\Coala\TestingBundle\Tests\Helpers\AssertionHelpersTrait::assertFailingValidation`
+
+---
 
 ## Rule Sets
 
@@ -22,7 +46,7 @@ Both rule sets build upon the excellent `@PhpCsFixer` rule set (which includes `
 
 ### Prerequisites
 
-- PHP 8.2 or higher
+- PHP 8.3 or higher
 - [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) ^3.0
 
 ### Installation

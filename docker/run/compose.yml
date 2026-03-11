@@ -1,0 +1,24 @@
+name: phpstan-rules
+
+x-base: &base
+  tty: true
+  command: >
+    sh -c "composer update &&
+           composer test"
+  volumes:
+    - ./../..:/app
+    - ~/.ssh:/root/.ssh
+
+services:
+  php85:
+    <<: *base
+    build:
+      context: ../build/php85
+  php84:
+    <<: *base
+    build:
+      context: ../build/php84
+  php83:
+    <<: *base
+    build:
+      context: ../build/php83

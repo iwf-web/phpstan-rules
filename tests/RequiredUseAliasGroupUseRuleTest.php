@@ -1,16 +1,26 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/**
+ * PHPStan Rules
+ *
+ * @package   PHPStan Rules
+ * @author    IWF Web Solutions <web-solutions@iwf.ch>
+ * @copyright Copyright (c) 2025-2026 IWF Web Solutions <web-solutions@iwf.ch>
+ * @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
+ * @link      https://github.com/iwf-web/phpstan-rules
+ */
 
-namespace Coala\TestingBundle\Tests\PHPStan\Rules;
+namespace IWF\RectorRules\Tests;
 
-use Coala\TestingBundle\PHPStan\Rules\RequiredUseAliasGroupUseRule;
+use IWF\RectorRules\Common\RequiredUseAliasGroupUseRule;
 use PHPStan\Rules\Rule;
 
 /**
  * @extends AbstractRuleTestCase<RequiredUseAliasGroupUseRule>
+ *
+ * @internal
  */
-class RequiredUseAliasGroupUseRuleTest extends AbstractRuleTestCase
+final class RequiredUseAliasGroupUseRuleTest extends AbstractRuleTestCase
 {
     protected function getRule(): Rule
     {
@@ -25,16 +35,16 @@ class RequiredUseAliasGroupUseRuleTest extends AbstractRuleTestCase
 
     public function testWrongAliases(): void
     {
-        $errors = $this->gatherAnalyserErrors([__DIR__ . '/data/required-use-alias-group-use.php']);
+        $errors = $this->gatherAnalyserErrors([__DIR__.'/data/required-use-alias-group-use.php']);
         self::assertRuleErrors($errors, [
-            ['identifier' => RequiredUseAliasGroupUseRule::IDENTIFIER, 'line' => 8],
-            ['identifier' => RequiredUseAliasGroupUseRule::IDENTIFIER, 'line' => 11],
+            ['identifier' => RequiredUseAliasGroupUseRule::IDENTIFIER, 'line' => 6],
+            ['identifier' => RequiredUseAliasGroupUseRule::IDENTIFIER, 'line' => 9],
         ]);
     }
 
     public function testCorrectAliases(): void
     {
-        $errors = $this->gatherAnalyserErrors([__DIR__ . '/data/required-use-alias-group-use-correct.php']);
+        $errors = $this->gatherAnalyserErrors([__DIR__.'/data/required-use-alias-group-use-correct.php']);
         self::assertNoRuleErrors($errors);
     }
 }

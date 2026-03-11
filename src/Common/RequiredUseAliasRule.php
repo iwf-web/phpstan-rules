@@ -1,8 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/**
+ * PHPStan Rules
+ *
+ * @package   PHPStan Rules
+ * @author    IWF Web Solutions <web-solutions@iwf.ch>
+ * @copyright Copyright (c) 2025-2026 IWF Web Solutions <web-solutions@iwf.ch>
+ * @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
+ * @link      https://github.com/iwf-web/phpstan-rules
+ */
 
-namespace Coala\TestingBundle\PHPStan\Rules;
+namespace IWF\RectorRules\Common;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -19,16 +27,17 @@ final class RequiredUseAliasRule implements Rule
 {
     use RequiredUseAliasMatcherTrait;
 
-    public const IDENTIFIER = 'coala.requiredUseAlias';
+    public const string IDENTIFIER = 'iwf.requiredUseAlias';
 
     /**
-     * @param list<array{namespace: string, alias: string}> $requiredUseAliases
+     * @param list<array{namespace: string, alias: string}> $aliasDefinitions
      */
-    public function __construct(array $requiredUseAliases)
+    public function __construct(array $aliasDefinitions)
     {
-        $this->aliasByNamespace = $this->buildAliasByNamespace($requiredUseAliases);
+        $this->aliasByNamespace = $this->buildAliasByNamespace($aliasDefinitions);
     }
 
+    #[\Override]
     public function getNodeType(): string
     {
         return Node\Stmt\Use_::class;
@@ -38,8 +47,10 @@ final class RequiredUseAliasRule implements Rule
      * @param Node\Stmt\Use_ $node
      *
      * @return list<RuleError>
+     *
      * @throws ShouldNotHappenException
      */
+    #[\Override]
     public function processNode(Node $node, Scope $scope): array
     {
         if ($node->type !== Node\Stmt\Use_::TYPE_NORMAL) {

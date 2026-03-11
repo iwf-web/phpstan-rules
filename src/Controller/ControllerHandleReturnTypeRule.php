@@ -1,8 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/**
+ * PHPStan Rules
+ *
+ * @package   PHPStan Rules
+ * @author    IWF Web Solutions <web-solutions@iwf.ch>
+ * @copyright Copyright (c) 2025-2026 IWF Web Solutions <web-solutions@iwf.ch>
+ * @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
+ * @link      https://github.com/iwf-web/phpstan-rules
+ */
 
-namespace Coala\TestingBundle\PHPStan\Rules;
+namespace IWF\RectorRules\Controller;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -30,12 +38,12 @@ final class ControllerHandleReturnTypeRule implements Rule
 {
     use ControllerRuleHelperTrait;
 
-    public const IDENTIFIER = 'coala.controllerHandleReturnType';
-    private const HANDLE_TRAIT = 'Symfony\Component\Messenger\HandleTrait';
+    public const string IDENTIFIER = 'iwf.controllerHandleReturnType';
+    private const string HANDLE_TRAIT = 'Symfony\Component\Messenger\HandleTrait';
 
     public function __construct(
         private readonly ReflectionProvider $reflectionProvider,
-        private readonly string $controllerNamespace = 'App\\Controller',
+        private readonly string $controllerNamespace = 'App\Controller',
     ) {}
 
     public function getNodeType(): string
@@ -47,6 +55,7 @@ final class ControllerHandleReturnTypeRule implements Rule
      * @param Class_ $node
      *
      * @return list<IdentifierRuleError>
+     *
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
@@ -60,7 +69,7 @@ final class ControllerHandleReturnTypeRule implements Rule
             return [];
         }
 
-        $className = $namespace . '\\' . $node->name->toString();
+        $className = $namespace.'\\'.$node->name->toString();
 
         if (!$this->reflectionProvider->hasClass($className)) {
             return [];
@@ -91,7 +100,7 @@ final class ControllerHandleReturnTypeRule implements Rule
             }
 
             $methodName = $method->name->toString();
-            $message = sprintf(
+            $message = \sprintf(
                 'Controller %s::%s() returns $this->handle() result but has return type "%s" which may cause a TypeError.',
                 $node->name->toString(),
                 $methodName,
@@ -101,8 +110,9 @@ final class ControllerHandleReturnTypeRule implements Rule
             $errors[] = RuleErrorBuilder::message($message)
                 ->identifier(self::IDENTIFIER)
                 ->line($returnLine)
-                ->tip(sprintf('Change the return type of %s() to "object" to safely handle all response types from the message bus.', $methodName))
-                ->build();
+                ->tip(\sprintf('Change the return type of %s() to "object" to safely handle all response types from the message bus.', $methodName))
+                ->build()
+            ;
         }
 
         return $errors;
@@ -152,13 +162,13 @@ final class ControllerHandleReturnTypeRule implements Rule
 
         // Collect variable names assigned from $this->handle()
         $handleVars = [];
+
         /** @var Node\Expr\Assign[] $assigns */
-        $assigns = $nodeFinder->find($stmts, static fn (Node $node): bool =>
-            $node instanceof Node\Expr\Assign && self::isThisHandleCall($node->expr),
+        $assigns = $nodeFinder->find($stmts, static fn (Node $node): bool => $node instanceof Node\Expr\Assign && self::isThisHandleCall($node->expr),
         );
 
         foreach ($assigns as $assign) {
-            if ($assign->var instanceof Variable && is_string($assign->var->name)) {
+            if ($assign->var instanceof Variable && \is_string($assign->var->name)) {
                 $handleVars[] = $assign->var->name;
             }
         }
@@ -175,8 +185,7 @@ final class ControllerHandleReturnTypeRule implements Rule
 
             // $this->handle() anywhere in the returned expression tree
             // (covers direct return, nested in method args, etc.)
-            $handleInExpr = $nodeFinder->findFirst($return->expr, static fn (Node $node): bool =>
-                self::isThisHandleCall($node),
+            $handleInExpr = $nodeFinder->findFirst($return->expr, static fn (Node $node): bool => self::isThisHandleCall($node),
             );
 
             if ($handleInExpr !== null) {
@@ -186,8 +195,8 @@ final class ControllerHandleReturnTypeRule implements Rule
             // return $var where $var was assigned from $this->handle()
             if (
                 $return->expr instanceof Variable
-                && is_string($return->expr->name)
-                && in_array($return->expr->name, $handleVars, true)
+                && \is_string($return->expr->name)
+                && \in_array($return->expr->name, $handleVars, true)
             ) {
                 return $return->getLine();
             }
@@ -208,7 +217,7 @@ final class ControllerHandleReturnTypeRule implements Rule
     private function isAcceptableReturnType(Node $returnType): bool
     {
         if ($returnType instanceof Node\Identifier) {
-            return in_array($returnType->toString(), ['object', 'mixed'], true);
+            return \in_array($returnType->toString(), ['object', 'mixed'], true);
         }
 
         if ($returnType instanceof Node\UnionType) {
@@ -251,7 +260,7 @@ final class ControllerHandleReturnTypeRule implements Rule
         }
 
         if ($returnType instanceof Node\NullableType) {
-            return '?' . $this->returnTypeToString($returnType->type);
+            return '?'.$this->returnTypeToString($returnType->type);
         }
 
         if ($returnType instanceof Node\IntersectionType) {
