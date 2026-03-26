@@ -327,7 +327,7 @@ Or configure your IDE to listen on port `9003` and set `XDEBUG_TRIGGER=1` in the
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Please read [CONTRIBUTING.md][contributing] for details on our code of conduct and the process for submitting pull requests.
 
 This project uses [Conventional Commits](https://www.conventionalcommits.org/) for automated releases and changelog generation.
 
@@ -337,11 +337,21 @@ We use [SemVer](http://semver.org/) for versioning. For available versions, see 
 
 ## Authors
 
-All authors can be found in the [AUTHORS.md](AUTHORS.md) file.
+### Special thanks for all the people who had helped this project so far
 
-Contributors can be found in the [CONTRIBUTORS.md](CONTRIBUTORS.md) file.
+- **Oliver** - [Oliver-Zieschang](https://github.com/Oliver-Zieschang)
 
 See also the full list of [contributors][gh-contributors] who participated in this project.
+
+### I would like to join this list. How can I help the project?
+
+We're currently looking for contributions for the following:
+
+- [ ] Bug fixes
+- [ ] Translations
+- [ ] etc...
+
+For more information, please refer to our [CONTRIBUTING.md][contributing] guide.
 
 ## License
 
@@ -349,9 +359,10 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## Acknowledgments
 
-A list of used libraries and code with their licenses can be found in the [ACKNOWLEDGMENTS.md](ACKNOWLEDGMENTS.md) file.
+This project currently uses no third-party libraries or copied code.
 
 [license]: https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt
 [packagist]: https://packagist.org/packages/iwf-web/phpstan-rules
 [gh-tags]: https://github.com/iwf-web/phpstan-rules/tags
 [gh-contributors]: https://github.com/iwf-web/phpstan-rules/contributors
+[contributing]: https://github.com/iwf-web/.github/blob/main/CONTRIBUTING.md
