@@ -47,7 +47,7 @@ abstract class AbstractRuleTestCase extends RuleTestCase
         usort($actual, $sort);
         usort($expectedErrors, $sort);
 
-        self::assertSame($expectedErrors, $actual);
+        self::assertSame($expectedErrors, $actual, 'Failed asserting that all expected errors match.');
     }
 
     /**

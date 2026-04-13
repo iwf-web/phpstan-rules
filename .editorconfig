@@ -17,7 +17,7 @@ charset = utf-8
 end_of_line = lf
 
 # Determine the actual(Space)/visual(Tab) width of one indentation level
-indent_size = 2
+indent_size = 4
 
 # Determine the default indentation character sequence
 # tab: 1 tab per indentation level

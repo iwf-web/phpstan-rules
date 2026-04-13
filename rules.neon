@@ -110,6 +110,11 @@ services:
             - phpstan.rules.rule
 
     -
+        class: IWF\RectorRules\Common\MbFunctionUsageRule
+        tags:
+            - phpstan.rules.rule
+
+    -
         class: IWF\RectorRules\Coala\DateProvider\ForceDateProviderNewRule
         arguments:
             allowedFormats: %iwf.forceDateProvider.allowedFormats%
