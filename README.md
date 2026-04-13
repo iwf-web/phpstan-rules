@@ -1,123 +1,329 @@
 # IWF PHPStan Rules
 
-Custom PHPStan rules used across IWF projects.
+Custom PHPStan rules used across IWF projects to enforce coding standards, security practices, and architectural conventions.
 
 [![License](https://img.shields.io/github/license/iwf-web/phpstan-rules)][license]
 [![Version](https://img.shields.io/packagist/v/iwf-web/phpstan-rules?label=latest%20release)][packagist]
 [![Version (including pre-releases)](https://img.shields.io/packagist/v/iwf-web/phpstan-rules?include_prereleases&label=latest%20pre-release)][packagist]
 [![Downloads on Packagist](https://img.shields.io/packagist/dt/iwf-web/phpstan-rules)][packagist]
 
----
-
-# TODO!!!
-
-- Rule: force date_provider usage
-  - if using `Coala\DateProviderBundle`
-  - and using `DateTimeInterface Implementation`, `time()`, `date()` etc not with a datetime string
-    - Also static `::createFromImmutable` and `::createFromMutable` need to be detected
-  - fail and suggest using the `\Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface::class`
-  
-- Rule: Attribute Requirements (Attribute can not be used stand-alone)
-  - Config as associative array Attribute → Attributes[]
-  - Route => [`OA\Tag`, `IsGranted`, `CoalaOA\Response`]
-
-- Rule: Use `HandleQueryBusTrait` / `HandleCommandBusTrait` / `HandleMessageBusTrait`
-  - if using `Coala\MessengerBundle`
-
-- Rule: Use invalid-data-test Group attribute
-  - if using `Coala\TestingBundle`
-  - method with prefix test or Test attrib
-  - call of `\Coala\TestingBundle\Tests\Helpers\AssertionHelpersTrait::assertFailingValidation`
-
----
-
-## Rule Sets
-
-This package provides two rule sets:
-
-| Rule Set              | Description                                                  |
-| --------------------- | ------------------------------------------------------------ |
-| `@IWF/standard`       | Non-risky coding style rules for consistent formatting       |
-| `@IWF/standard:risky` | Risky rules that may change code behavior (use with caution) |
-
-Both rule sets build upon the excellent `@PhpCsFixer` rule set (which includes `@Symfony` and `@PSR12`) with customizations tailored for IWF projects.
-
-## Getting Started
-
-### Prerequisites
+## Requirements
 
 - PHP 8.3 or higher
-- [PHP-CS-Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) ^3.0
+- PHPStan ^2.1
 
-### Installation
+## Installation
 
 ```bash
 composer require --dev iwf-web/phpstan-rules
 ```
 
-### Usage
+## Usage
 
-Create a `.php-cs-fixer.dist.php` file in your project root:
+Include the rule set in your `phpstan.neon` or `phpstan.neon.dist`:
+
+```neon
+includes:
+    - vendor/iwf-web/phpstan-rules/rules.neon
+```
+
+### Configuration
+
+Several rules require or accept configuration parameters under the `iwf` key.
+
+#### Controller rules
+
+```neon
+parameters:
+    iwf:
+        controller:
+            controllerNamespace: 'App\Controller'
+            excludedNamespaces: []
+            excludedControllers:
+                - 'App\Controller\Api\Security\LoginController'
+```
+
+#### Required use aliases
+
+Enforce that specific namespaces are always imported with a defined alias:
+
+```neon
+parameters:
+    iwf:
+        requiredUseAlias:
+            aliasDefinitions:
+                - { namespace: 'Doctrine\ORM\Mapping', alias: 'ORM' }
+                - { namespace: 'Symfony\Component\Validator\Constraints', alias: 'Assert' }
+```
+
+#### Attribute requirements
+
+Enforce that certain attributes may only appear alongside required companion attributes:
+
+```neon
+parameters:
+    iwf:
+        attributeRequirements:
+            attributeDefinitions:
+                -
+                    attribute: 'Symfony\Component\Routing\Attribute\Route'
+                    requires:
+                        - 'OpenApi\Attributes\Tag'
+                        - 'Symfony\Component\Security\Http\Attribute\IsGranted'
+```
+
+#### Force DateProvider (requires `coala/date-provider-bundle`)
+
+```neon
+parameters:
+    iwf:
+        forceDateProvider:
+            allowedFormats:
+                - 'Y-m-d'
+                - 'Y-m-d H:i:s'
+                - 'Y-m-d\TH:i:s'
+                - 'Y-m-d\TH:i:sP'
+                - 'U'
+```
+
+#### Handle-bus traits (requires `coala/messenger-bundle`)
+
+```neon
+parameters:
+    iwf:
+        handleBusTrait:
+            handleBusTraitMappings:
+                queryBus: 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait'
+            handleBusTraitNamespaces:
+                - 'App\Controller'
+```
+
+#### Require invalid-data-test group (requires `coala/testing-bundle`)
+
+```neon
+parameters:
+    iwf:
+        requireInvalidDataTestGroup:
+            requireInvalidDataTestGroupNamespaces:
+                - 'App\Tests'
+```
+
+---
+
+## Rules
+
+### Common
+
+#### `iwf.mbFunctionUsageRule` — Multibyte function usage
+
+Flags calls to string functions that have a multibyte-safe counterpart and may produce incorrect results when the input contains multibyte characters (e.g. UTF-8).
+
+Affected functions: `chr`, `ord`, `parse_str`, `str_pad`, `str_split`, `stripos`, `stristr`, `strlen`, `strpos`, `strrchr`, `strripos`, `strrpos`, `strstr`, `strtolower`, `strtoupper`, `substr`, `substr_count`.
 
 ```php
-<?php declare(strict_types=1);
+// ❌ flagged
+$len = strlen($userInput);
 
-require_once __DIR__.'/vendor/autoload.php';
-
-use IWF\CodingStandard\IWFRiskySet;
-use IWF\CodingStandard\IWFSet;
-use PhpCsFixer\Config;
-use PhpCsFixer\Finder;
-use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
-
-return new Config()
-    ->registerCustomRuleSets([
-        new IWFSet(),
-        new IWFRiskySet(),
-    ])
-    ->setFinder(Finder::create()
-        ->in(__DIR__)
-    )
-    ->setParallelConfig(ParallelConfigFactory::detect())
-    ->setRiskyAllowed(true)
-    ->setRules([
-        '@IWF/standard' => true,
-        '@IWF/standard:risky' => true,
-    ])
-;
+// ✅ correct
+$len = mb_strlen($userInput);
 ```
 
-Run the fixer:
+---
+
+#### `iwf.noAnnotationAsAttribute` — No legacy Symfony annotation namespaces
+
+Prevents using classes from the legacy `Symfony\...\Annotation\` namespace as PHP 8 attributes. Symfony has migrated all annotations to `Symfony\...\Attribute\`.
+
+```php
+// ❌ flagged
+#[Symfony\Component\Routing\Annotation\Route('/foo')]
+
+// ✅ correct
+#[Symfony\Component\Routing\Attribute\Route('/foo')]
+```
+
+---
+
+#### `iwf.requiredUseAlias` — Required import aliases
+
+Enforces that configured namespaces are always imported under a specific alias. Applies to both regular `use` statements and group `use` statements.
+
+```php
+// ❌ flagged — missing alias
+use Doctrine\ORM\Mapping;
+
+// ✅ correct
+use Doctrine\ORM\Mapping as ORM;
+```
+
+---
+
+#### `iwf.attributeRequirements` — Attribute companion requirements
+
+Ensures that when a trigger attribute is present on a method, all configured companion attributes are also present.
+
+```php
+// ❌ flagged — #[Route] without #[IsGranted]
+#[Route('/admin/users')]
+public function list(): object { ... }
+
+// ✅ correct
+#[Route('/admin/users')]
+#[IsGranted('ROLE_ADMIN')]
+public function list(): object { ... }
+```
+
+---
+
+### Controller
+
+#### `iwf.controllerHandleReturnType` — Controller handle() return type
+
+In controllers that use Symfony's `HandleTrait`, actions returning `$this->handle(...)` must declare their return type as `object` (or `mixed`). A more specific type causes a `TypeError` when the message bus returns an unexpected response such as an `ErrorResponse`.
+
+```php
+// ❌ flagged — too specific, will TypeError on error responses
+public function __invoke(Request $request): RecordsResponse
+{
+    return $this->handle(new GetRecordsQuery());
+}
+
+// ✅ correct
+public function __invoke(Request $request): object
+{
+    return $this->handle(new GetRecordsQuery());
+}
+```
+
+---
+
+#### `iwf.controllerMissingIsGranted` — Controller missing #[IsGranted]
+
+Every public controller method carrying a `#[Route]` attribute must also carry a `#[IsGranted]` attribute — either on the method itself or on the class. Excludes abstract classes and any configured namespaces or class names.
+
+```php
+// ❌ flagged
+#[Route('/api/users')]
+public function index(): object { ... }
+
+// ✅ correct
+#[Route('/api/users')]
+#[IsGranted('ROLE_USER')]
+public function index(): object { ... }
+```
+
+---
+
+### Coala — DateProvider
+
+> These rules are only active when `Coala\DateProviderBundle` is present in the project.
+
+#### `iwf.forceDateProviderNew` / `iwf.forceDateProviderFuncCall` / `iwf.forceDateProviderStaticCall`
+
+Disallows creating `DateTime`/`DateTimeImmutable` without an absolute date string argument, calling time-sensitive functions (`time()`, `date()`, etc.), or using static factory methods that produce the current time. Enforces the use of `DateProviderInterface` instead, which enables deterministic time in tests.
+
+```php
+// ❌ flagged
+$now = new DateTimeImmutable();
+$ts  = time();
+
+// ✅ correct
+$now = $this->dateProvider->now();
+```
+
+---
+
+### Coala — Messenger
+
+> This rule is only active when `Coala\MessengerBundle` is present in the project.
+
+#### `iwf.useHandleBusTrait`
+
+In configured namespaces, if a class defines a setter method that corresponds to a configured handle-bus trait (e.g. `setQueryBus()`), it must use the matching trait instead of defining the setter manually.
+
+---
+
+### Coala — Testing
+
+> This rule is only active when `Coala\TestingBundle` is present in the project.
+
+#### `iwf.requireInvalidDataTestGroup`
+
+Test methods that call `assertFailingValidation()` must carry `#[Group('invalid-data-test')]`. This allows the test suite to run invalid-data tests in isolation.
+
+```php
+// ❌ flagged
+public function testInvalidEmail(): void
+{
+    $this->assertFailingValidation(...);
+}
+
+// ✅ correct
+#[Group('invalid-data-test')]
+public function testInvalidEmail(): void
+{
+    $this->assertFailingValidation(...);
+}
+```
+
+---
+
+## Development
+
+### Prerequisites
+
+- Docker with Compose, or a local PHP 8.3+ installation
+
+### Running tests
 
 ```bash
-# Check for violations (dry run)
-vendor/bin/php-cs-fixer fix --dry-run --diff
-
-# Fix violations
-vendor/bin/php-cs-fixer fix
+bin/test.sh
 ```
 
-## Rule Customizations
+Runs PHPStan and PHPUnit. If a local PHP binary is found it is used directly; otherwise all configured Docker services are run sequentially.
 
-### @IWF/standard
+To target a specific PHP version:
 
-Key customizations over the base `@PhpCsFixer` rule set:
+```bash
+bin/test.sh 8.3
+```
 
-- **No Yoda style** - Uses natural comparison order (`$value === null` instead of `null === $value`)
-- **Strict types at top** - No blank line after opening tag to keep `declare(strict_types=1);` at the very top
-- **Simplified class ordering** - Only requires traits to be placed first in classes
-- **Preserved DocBlocks** - Single-line DocBlocks are preserved; `@inheritDoc` is not removed
-- **Trailing commas everywhere** - In arrays, arguments, parameters, and match expressions
-- **PHPUnit flexibility** - Does not require `@covers` annotations on test classes
+### Linting
 
-### @IWF/standard:risky
+```bash
+bin/lint.sh
+```
 
-Key customizations over the base `@PhpCsFixer:risky` rule set:
+Runs PHP CS Fixer and applies fixes in place. To check without modifying files (as CI does), run:
 
-- **PHPUnit assertions** - Uses `self::` for test case static method calls
-- **No forced strict types** - Relies on PHPStan for type safety instead of enforcing `declare(strict_types=1);`
-- **Flexible data providers** - Does not enforce naming conventions for PHPUnit data providers
-- **Ignored comment tags** - Preserves `php-cs-fixer-ignore` and `todo` comments
+```bash
+composer lint:check
+```
+
+### Running Composer commands
+
+```bash
+bin/composer.sh <args>
+```
+
+Runs Composer in the local environment or in the default Docker container when no local PHP is available. Examples:
+
+```bash
+bin/composer.sh install
+bin/composer.sh require --dev some/package
+```
+
+### Debugging with Xdebug
+
+Xdebug is included in the local Docker images and configured with `start_with_request=trigger`. To activate it, set the `XDEBUG_TRIGGER` environment variable:
+
+```bash
+XDEBUG_TRIGGER=1 bin/test.sh
+```
+
+Or configure your IDE to listen on port `9003` and set `XDEBUG_TRIGGER=1` in the Docker run environment.
+
+---
 
 ## Contributing
 
