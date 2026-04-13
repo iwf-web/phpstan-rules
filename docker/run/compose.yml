@@ -2,6 +2,10 @@ name: phpstan-rules
 
 x-base: &base
   tty: true
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  environment:
+    PHP_IDE_CONFIG: serverName=iwf-phpstan-rules # for PHPStorm debugging
   command: >
     sh -c "composer update &&
            composer test"
@@ -12,13 +16,22 @@ x-base: &base
 services:
   php85:
     <<: *base
+    container_name: iwf-phpstan-rules-php85
     build:
-      context: ../build/php85
+      context: ../build
+      args:
+        PHP_VERSION: "85"
   php84:
     <<: *base
+    container_name: iwf-phpstan-rules-php84
     build:
-      context: ../build/php84
+      context: ../build
+      args:
+        PHP_VERSION: "84"
   php83:
     <<: *base
+    container_name: iwf-phpstan-rules-php83
     build:
-      context: ../build/php83
+      context: ../build
+      args:
+        PHP_VERSION: "83"
