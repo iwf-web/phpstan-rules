@@ -20,18 +20,21 @@ services:
     build:
       context: ../build
       args:
-        PHP_VERSION: "85"
+        PHP_VERSION: "8.5"
+        XDEBUG: "${XDEBUG:-true}"
   php84:
     <<: *base
     container_name: iwf-phpstan-rules-php84
     build:
       context: ../build
       args:
-        PHP_VERSION: "84"
+        PHP_VERSION: "8.4"
+        XDEBUG: "${XDEBUG:-true}"
   php83:
     <<: *base
     container_name: iwf-phpstan-rules-php83
     build:
       context: ../build
       args:
-        PHP_VERSION: "83"
+        PHP_VERSION: "8.3"
+        XDEBUG: "${XDEBUG:-true}"

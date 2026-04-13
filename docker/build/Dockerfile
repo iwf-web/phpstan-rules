@@ -1,31 +1,48 @@
+# syntax=docker/dockerfile:1
+
 FROM alpine:3.23
 
 ARG PHP_VERSION
+ARG XDEBUG=false
 
-RUN apk add --no-cache \
-        php${PHP_VERSION} \
-        php${PHP_VERSION}-phar \
-        php${PHP_VERSION}-mbstring \
-        php${PHP_VERSION}-openssl \
-        php${PHP_VERSION}-curl \
-        php${PHP_VERSION}-intl \
-        php${PHP_VERSION}-xml \
-        php${PHP_VERSION}-xmlwriter \
-        php${PHP_VERSION}-dom \
-        php${PHP_VERSION}-simplexml \
-        php${PHP_VERSION}-tokenizer \
-        php${PHP_VERSION}-ctype \
-        php${PHP_VERSION}-iconv \
-        php${PHP_VERSION}-session \
-        php${PHP_VERSION}-pecl-xdebug \
+SHELL ["/bin/sh", "-eux", "-o", "pipefail", "-c"]
+
+RUN <<-EOF
+    PHP_VER=$(echo "$PHP_VERSION" | tr -d '.')
+    apk add --no-cache \
+        php${PHP_VER} \
+        php${PHP_VER}-phar \
+        php${PHP_VER}-mbstring \
+        php${PHP_VER}-openssl \
+        php${PHP_VER}-curl \
+        php${PHP_VER}-intl \
+        php${PHP_VER}-xml \
+        php${PHP_VER}-xmlwriter \
+        php${PHP_VER}-dom \
+        php${PHP_VER}-simplexml \
+        php${PHP_VER}-tokenizer \
+        php${PHP_VER}-ctype \
+        php${PHP_VER}-iconv \
+        php${PHP_VER}-session \
         git \
         unzip \
         openssh
+EOF
 
-RUN ln -sf /usr/bin/php${PHP_VERSION} /usr/bin/php
+RUN <<-EOF
+    PHP_VER=$(echo "$PHP_VERSION" | tr -d '.')
+    if [ "$XDEBUG" = "true" ]; then
+        apk add --no-cache "php${PHP_VER}-pecl-xdebug"
+        printf '[xdebug]\nzend_extension=xdebug\nxdebug.mode=debug\nxdebug.start_with_request=trigger\nxdebug.client_host=host.docker.internal\nxdebug.client_port=9003\n' \
+            > "/etc/php${PHP_VER}/conf.d/50_xdebug.ini"
+    fi
+EOF
 
-RUN printf '[xdebug]\nzend_extension=xdebug\nxdebug.mode=debug\nxdebug.start_with_request=yes\nxdebug.client_host=host.docker.internal\nxdebug.client_port=9003\n' \
-    > /etc/php${PHP_VERSION}/conf.d/50_xdebug.ini
+RUN <<-EOF
+    PHP_VER=$(echo "$PHP_VERSION" | tr -d '.')
+    ln -sf "/usr/bin/php${PHP_VER}" /usr/bin/php
+    git config --global --add safe.directory /app
+EOF
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

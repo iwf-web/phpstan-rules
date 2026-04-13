@@ -58,13 +58,22 @@
         ]
     },
     "scripts": {
-        "lint": "@composer exec php-cs-fixer fix",
+        "lint": "@composer exec -- php-cs-fixer fix",
+        "lint:check": [
+            "find . -name '*.php' -not -path './vendor/*' -not -path './tests/data/*' | xargs -n1 php -l",
+            "@composer exec -- php-cs-fixer fix --dry-run --diff"
+        ],
         "test": [
             "@phpstan",
             "@phpunit"
         ],
-        "phpunit": "@composer exec phpunit",
-        "phpstan": "@composer exec -- phpstan --memory-limit=256M"
+        "phpunit": "@composer exec -- phpunit",
+        "phpstan": "@composer exec -- phpstan --memory-limit=256M",
+        "phpstan:ci": "@composer exec -- phpstan --memory-limit=256M --no-progress --error-format=github",
+        "test:ci": [
+            "@phpstan:ci",
+            "@phpunit"
+        ]
     },
     "minimum-stability": "stable",
     "config": {

@@ -1,3 +1,4 @@
+
 # Is it a feature or a bug ?
 
 Sometimes it's a bit tricky to define if given change proposal or change request
