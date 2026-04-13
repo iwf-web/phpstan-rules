@@ -58,6 +58,7 @@
         ]
     },
     "scripts": {
+        "lint": "@composer exec php-cs-fixer fix",
         "test": [
             "@phpstan",
             "@phpunit"
