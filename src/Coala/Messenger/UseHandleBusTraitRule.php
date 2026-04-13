@@ -34,13 +34,13 @@ final class UseHandleBusTraitRule implements Rule
     private const string SENTINEL_CLASS = 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait';
 
     /**
-     * @param array<string, string> $handleBusTraitMappings  key => traitFQCN
+     * @param array<string, string> $handleBusTraitMappings   key => traitFQCN
      * @param list<string>          $handleBusTraitNamespaces
      */
     public function __construct(
         private readonly ReflectionProvider $reflectionProvider,
         private readonly array $handleBusTraitMappings = [],
-        private readonly array $handleBusTraitNamespaces = ['App\\Controller'],
+        private readonly array $handleBusTraitNamespaces = ['App\Controller'],
     ) {}
 
     public function getNodeType(): string
@@ -75,6 +75,7 @@ final class UseHandleBusTraitRule implements Rule
         foreach ($this->handleBusTraitNamespaces as $prefix) {
             if (str_starts_with($namespace, $prefix)) {
                 $matchesNamespace = true;
+
                 break;
             }
         }
@@ -105,7 +106,8 @@ final class UseHandleBusTraitRule implements Rule
             )
                 ->identifier(self::IDENTIFIER)
                 ->line($node->getStartLine())
-                ->build();
+                ->build()
+            ;
         }
 
         return $errors;
@@ -119,7 +121,7 @@ final class UseHandleBusTraitRule implements Rule
         $traits = [];
 
         foreach ($node->stmts as $stmt) {
-            if (!($stmt instanceof TraitUse)) {
+            if (!$stmt instanceof TraitUse) {
                 continue;
             }
 

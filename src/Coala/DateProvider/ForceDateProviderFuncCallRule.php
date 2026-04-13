@@ -68,7 +68,7 @@ final class ForceDateProviderFuncCallRule implements Rule
             return [];
         }
 
-        if (!($node->name instanceof Node\Name)) {
+        if (!$node->name instanceof Node\Name) {
             return [];
         }
 

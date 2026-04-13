@@ -1,9 +1,19 @@
 <?php declare(strict_types=1);
 
+/**
+ * PHPStan Rules
+ *
+ * @package   PHPStan Rules
+ * @author    IWF Web Solutions <web-solutions@iwf.ch>
+ * @copyright Copyright (c) 2025-2026 IWF Web Solutions <web-solutions@iwf.ch>
+ * @license   https://github.com/iwf-web/phpstan-rules/blob/main/LICENSE.txt MIT License
+ * @link      https://github.com/iwf-web/phpstan-rules
+ */
+
 require_once __DIR__.'/vendor/autoload.php';
 
-use IWF\CodingStandard\IWFRiskySet;
-use IWF\CodingStandard\IWFSet;
+use IWFWeb\CodingStandard\IWFWebStandardRiskySet;
+use IWFWeb\CodingStandard\IWFWebStandardSet;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
@@ -23,22 +33,21 @@ $header = <<<EOF
 // https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/rules/index.rst
 return (new Config())
     ->registerCustomRuleSets([
-        new IWFSet(),
-        new IWFRiskySet(),
+        new IWFWebStandardSet(),
+        new IWFWebStandardRiskySet(),
     ])
     ->setFinder(Finder::create()
         ->in(__DIR__)
         ->ignoreDotFiles(false)
         ->ignoreVCSIgnored(true)
-        ->notPath('.php-cs-fixer.dist.php')
-        ->notPath(__DIR__ . DIRECTORY_SEPARATOR . 'tests' . DIRECTORY_SEPARATOR . 'data')
+        ->notPath('tests/data'),
     )
     ->setParallelConfig(ParallelConfigFactory::detect())
     ->setUnsupportedPhpVersionAllowed(true)
     ->setRiskyAllowed(true)
     ->setRules([
-        '@IWF/standard' => true,
-        '@IWF/standard:risky' => true,
+        '@IWFWeb/standard' => true,
+        '@IWFWeb/standard:risky' => true,
         'header_comment' => [
             'comment_type' => 'PHPDoc',
             'header' => $header,

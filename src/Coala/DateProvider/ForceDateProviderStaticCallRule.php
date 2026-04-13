@@ -56,11 +56,11 @@ final class ForceDateProviderStaticCallRule implements Rule
             return [];
         }
 
-        if (!($node->class instanceof Node\Name)) {
+        if (!$node->class instanceof Node\Name) {
             return [];
         }
 
-        if (!($node->name instanceof Node\Identifier)) {
+        if (!$node->name instanceof Node\Identifier) {
             return [];
         }
 
@@ -83,11 +83,11 @@ final class ForceDateProviderStaticCallRule implements Rule
             return [];
         }
 
-        if (!($formatArg->value instanceof Node\Scalar\String_)) {
+        if (!$formatArg->value instanceof Node\Scalar\String_) {
             return [];
         }
 
-        if (!($valueArg->value instanceof Node\Scalar\String_)) {
+        if (!$valueArg->value instanceof Node\Scalar\String_) {
             return [];
         }
 

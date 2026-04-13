@@ -27,10 +27,10 @@ final class UseHandleBusTraitRuleTest extends AbstractRuleTestCase
         return new UseHandleBusTraitRule(
             self::createReflectionProvider(),
             handleBusTraitMappings: [
-                'commandBus' => 'Coala\\MessengerBundle\\Messenger\\HandleCommandBusTrait',
-                'queryBus' => 'Coala\\MessengerBundle\\Messenger\\HandleQueryBusTrait',
+                'commandBus' => 'Coala\MessengerBundle\Messenger\HandleCommandBusTrait',
+                'queryBus' => 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait',
             ],
-            handleBusTraitNamespaces: ['App\\Controller'],
+            handleBusTraitNamespaces: ['App\Controller'],
         );
     }
 

@@ -19,7 +19,6 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 
-
 /**
  * Disallows using string related functions that have an mb counterpart.
  *

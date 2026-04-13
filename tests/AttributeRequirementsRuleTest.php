@@ -27,10 +27,10 @@ final class AttributeRequirementsRuleTest extends AbstractRuleTestCase
         return new AttributeRequirementsRule(
             attributeDefinitions: [
                 [
-                    'attribute' => 'Symfony\\Component\\Routing\\Attribute\\Route',
+                    'attribute' => 'Symfony\Component\Routing\Attribute\Route',
                     'requires' => [
-                        'OpenApi\\Attributes\\Tag',
-                        'Symfony\\Component\\Security\\Http\\Attribute\\IsGranted',
+                        'OpenApi\Attributes\Tag',
+                        'Symfony\Component\Security\Http\Attribute\IsGranted',
                     ],
                 ],
             ],

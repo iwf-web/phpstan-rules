@@ -83,7 +83,8 @@ final class AttributeRequirementsRule implements Rule
                     $errors[] = RuleErrorBuilder::message($message)
                         ->identifier(self::IDENTIFIER)
                         ->line($node->getStartLine())
-                        ->build();
+                        ->build()
+                    ;
                 }
             }
         }

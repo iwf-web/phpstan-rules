@@ -43,7 +43,7 @@ final class RequireInvalidDataTestGroupRule implements Rule
      */
     public function __construct(
         private readonly ReflectionProvider $reflectionProvider,
-        private readonly array $requireInvalidDataTestGroupNamespaces = ['App\\Tests'],
+        private readonly array $requireInvalidDataTestGroupNamespaces = ['App\Tests'],
     ) {}
 
     #[\Override]
@@ -75,6 +75,7 @@ final class RequireInvalidDataTestGroupRule implements Rule
         foreach ($this->requireInvalidDataTestGroupNamespaces as $prefix) {
             if (str_starts_with($namespace, $prefix)) {
                 $matchesNamespace = true;
+
                 break;
             }
         }

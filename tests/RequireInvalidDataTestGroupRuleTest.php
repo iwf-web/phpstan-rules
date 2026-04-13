@@ -26,7 +26,7 @@ final class RequireInvalidDataTestGroupRuleTest extends AbstractRuleTestCase
     {
         return new RequireInvalidDataTestGroupRule(
             self::createReflectionProvider(),
-            requireInvalidDataTestGroupNamespaces: ['App\\Tests'],
+            requireInvalidDataTestGroupNamespaces: ['App\Tests'],
         );
     }
 

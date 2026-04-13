@@ -57,7 +57,7 @@ final class ForceDateProviderNewRule implements Rule
             return [];
         }
 
-        if (!($node->class instanceof Node\Name)) {
+        if (!$node->class instanceof Node\Name) {
             return [];
         }
 
@@ -70,7 +70,7 @@ final class ForceDateProviderNewRule implements Rule
         }
 
         $firstArg = $node->args[0];
-        if (!($firstArg instanceof Node\Arg)) {
+        if (!$firstArg instanceof Node\Arg) {
             return [];
         }
 
@@ -102,6 +102,7 @@ final class ForceDateProviderNewRule implements Rule
             ->identifier(self::IDENTIFIER)
             ->line($line)
             ->tip('Use DateProviderInterface to obtain the current time.')
-            ->build();
+            ->build()
+        ;
     }
 }
