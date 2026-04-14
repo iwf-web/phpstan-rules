@@ -1,0 +1,35 @@
+parametersSchema:
+    iwfWeb: structure([
+        requiredUseAlias: structure([
+            aliasDefinitions: listOf(structure([
+                namespace: string()
+                alias: string()
+            ]))
+        ])
+        attributeRequirements: structure([
+            attributeDefinitions: listOf(structure([
+                attribute: string()
+                requires: listOf(string())
+            ]))
+        ])
+        controller: structure([
+            controllerNamespace: string()
+            excludedNamespaces: listOf(string())
+            excludedControllers: listOf(string())
+        ])
+        handleBusTrait: structure([
+            handleBusTraitMappings: arrayOf(string())
+            handleBusTraitNamespaces: listOf(string())
+        ])
+        requireInvalidDataTestGroup: structure([
+            requireInvalidDataTestGroupNamespaces: listOf(string())
+        ])
+        forceDateProvider: structure([
+            allowedFormats: listOf(string())
+        ])
+    ])
+
+includes:
+    - config/common.neon
+    - config/controller.neon
+    - config/coala.neon
