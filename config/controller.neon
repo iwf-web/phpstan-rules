@@ -10,7 +10,7 @@ parametersSchema:
 parameters:
     iwfWeb:
         controller:
-            controllerNamespace: 'App\Controller\Foo'
+            controllerNamespace: 'App\Controller'
             excludedNamespaces: []
             excludedControllers:
                 - 'App\Controller\Api\Security\LoginController'
@@ -19,15 +19,15 @@ services:
     -
         class: IWFWeb\PhpstanRules\Controller\ControllerHandleReturnTypeRule
         arguments:
-            controllerNamespace: %iwf.controller.controllerNamespace%
+            controllerNamespace: %iwfWeb.controller.controllerNamespace%
         tags:
             - phpstan.rules.rule
 
     -
         class: IWFWeb\PhpstanRules\Controller\ControllerIsGrantedRule
         arguments:
-            controllerNamespace: %iwf.controller.controllerNamespace%
-            excludedNamespaces: %iwf.controller.excludedNamespaces%
-            excludedControllers: %iwf.controller.excludedControllers%
+            controllerNamespace: %iwfWeb.controller.controllerNamespace%
+            excludedNamespaces: %iwfWeb.controller.excludedNamespaces%
+            excludedControllers: %iwfWeb.controller.excludedControllers%
         tags:
             - phpstan.rules.rule

@@ -170,7 +170,9 @@ final readonly class ControllerHandleReturnTypeRule implements Rule
         $handleVars = [];
 
         /** @var Node\Expr\Assign[] $assigns */
-        $assigns = $nodeFinder->find($stmts, static fn (Node $node): bool => $node instanceof Node\Expr\Assign && self::isThisHandleCall($node->expr),
+        $assigns = $nodeFinder->find(
+            $stmts,
+            static fn (Node $node): bool => $node instanceof Node\Expr\Assign && self::isThisHandleCall($node->expr),
         );
 
         foreach ($assigns as $assign) {

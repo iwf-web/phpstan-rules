@@ -35,6 +35,10 @@ run_docker() {
 if [[ "$COVERAGE" == "true" ]]; then
     service="php${VERSION//./}"
     [[ -z "$VERSION" ]] && service=$(default_service)
+    echo "==> Install (${service})"
+    docker compose -f "$COMPOSE_FILE" run --rm \
+        -e COMPOSER_MEMORY_LIMIT=-1 \
+        "$service" composer install --no-interaction --prefer-dist
     echo "==> Coverage (${service})"
     docker compose -f "$COMPOSE_FILE" run --rm \
         -e XDEBUG_MODE=off \
