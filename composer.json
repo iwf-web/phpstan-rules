@@ -90,7 +90,6 @@
         "exclude": [
             ".devcontainer",
             ".github",
-            ".vscode",
             ".editorconfig",
             ".gitignore",
             ".gitattributes",
