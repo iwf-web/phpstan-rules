@@ -16,7 +16,6 @@ use IWFWeb\CodingStandard\IWFWebStandardRiskySet;
 use IWFWeb\CodingStandard\IWFWebStandardSet;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
-use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 
 $year = date('Y');
 $header = <<<EOF
@@ -42,7 +41,6 @@ return (new Config())
         ->ignoreVCSIgnored(true)
         ->notPath('tests/data'),
     )
-    ->setParallelConfig(ParallelConfigFactory::detect())
     ->setUnsupportedPhpVersionAllowed(true)
     ->setRiskyAllowed(true)
     ->setRules([
