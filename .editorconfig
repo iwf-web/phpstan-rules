@@ -31,6 +31,9 @@ insert_final_newline = true
 # Whether to trim out the (unnecessary) trailing whitespace(s) of the line
 trim_trailing_whitespace = true
 
+ij_continuation_indent_size = 2
+ij_visual_guides = 80, 120, 150
+
 [.git/**]
 # Avoid git patch fail to apply due to the stripped unmodified lines that
 # contains only spaces, which also matches as "trailing spaces"
@@ -43,3 +46,4 @@ trim_trailing_whitespace = false
 [{.vscode/settings.json,composer.json,.phpunit.result.cache,composer.lock,*.xml,*.xml.dist,*.php,.php_cs.dist,*.neon,*.neon.dist}]
 indent_size = 4
 tab_width = 4
+ij_continuation_indent_size = 4

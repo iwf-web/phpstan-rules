@@ -1,6 +1,7 @@
 # This is what is relevant for composer installs
 .devcontainer export-ignore
 .github export-ignore
+.vscode export-ignore
 .editorconfig export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
