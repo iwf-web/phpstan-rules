@@ -1,0 +1,104 @@
+{
+    "name": "iwf-web/phpstan-rules",
+    "description": "Custom rules for PHPStan for applications developed by IWF",
+    "type": "library",
+    "keywords": [
+        "phpstan",
+        "rules",
+        "coding-standard",
+        "ruleset"
+    ],
+    "homepage": "https://github.com/iwf-web/phpstan-rules",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oliver Zieschang",
+            "email": "o.zieschang@iwf.ch",
+            "homepage": "https://github.com/Oliver-Zieschang",
+            "role": "Maintainer"
+        },
+        {
+            "name": "D3strukt0r",
+            "email": "dev@d3strukt0r.dev",
+            "homepage": "https://github.com/D3strukt0r",
+            "role": "Developer"
+        },
+        {
+            "name": "Xeno Suter",
+            "email": "x.suter@iwf.ch",
+            "homepage": "https://github.com/xeno-suter",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "developer@iwf.ch",
+        "issues": "https://github.com/iwf-web/phpstan-rules/issues",
+        "forum": "https://github.com/iwf-web/phpstan-rules/discussions",
+        "wiki": "https://github.com/iwf-web/phpstan-rules/wiki",
+        "source": "https://github.com/iwf-web/phpstan-rules",
+        "docs": "https://github.com/iwf-web/phpstan-rules/blob/main/README.md"
+    },
+    "require": {
+        "php": ">=8.3",
+        "phpstan/phpstan": "^2.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "iwf-web/php-coding-standard": "^1.0",
+        "phpunit/phpunit": "^12.0",
+        "rector/rector": "^2.4",
+        "symfony/messenger": "^7.0|^8.0",
+        "symfony/routing": "^7.0|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "IWFWeb\\PhpstanRules\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IWFWeb\\PhpstanRules\\Tests\\": "tests/"
+        },
+        "classmap": [
+            "tests/data/"
+        ]
+    },
+    "scripts": {
+        "install-phpstan": "@php bin/extract-phpstan.php",
+        "post-install-cmd": "@install-phpstan",
+        "post-update-cmd": "@install-phpstan",
+        "lint": "@composer exec -- php-cs-fixer fix",
+        "lint:check": [
+            "find . -name '*.php' -not -path './vendor/*' -not -path './tests/data/*' | xargs -n1 php -l",
+            "@composer exec -- php-cs-fixer fix --dry-run --diff"
+        ],
+        "test": [
+            "@phpstan",
+            "@phpunit"
+        ],
+        "test:ci": [
+            "@phpstan:ci",
+            "@phpunit"
+        ],
+        "phpunit": "@composer exec -- phpunit",
+        "phpunit:coverage": "@composer exec -- phpunit --coverage-clover coverage.xml",
+        "phpstan": "@composer exec -- phpstan --memory-limit=256M",
+        "phpstan:ci": "@composer exec -- phpstan --memory-limit=256M --no-progress --error-format=github",
+        "rector": [
+            "@composer exec -- rector",
+            "@lint"
+        ],
+        "rector:check": "@composer exec -- rector --dry-run"
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "rules.neon"
+            ]
+        }
+    }
+}

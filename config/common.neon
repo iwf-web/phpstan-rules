@@ -1,0 +1,65 @@
+parametersSchema:
+    iwfWeb: structure([
+        requiredUseAlias: structure([
+            aliasDefinitions: listOf(structure([
+                namespace: string()
+                alias: string()
+            ]))
+        ])
+        attributeRequirements: structure([
+            attributeDefinitions: listOf(structure([
+                attribute: string()
+                requires: listOf(string())
+            ]))
+        ])
+    ])
+
+parameters:
+    iwfWeb:
+        requiredUseAlias:
+            aliasDefinitions:
+                - { namespace: 'Doctrine\ORM\Mapping', alias: 'ORM' }
+                - { namespace: 'OpenApi\Attributes', alias: 'OA' }
+                - { namespace: 'Coala\OpenApiContracts', alias: 'CoalaOA' }
+                - { namespace: 'Coala\ModelMappingBundle\Annotation', alias: 'ModelMapping' }
+                - { namespace: 'Symfony\Component\Validator\Constraints', alias: 'Assert' }
+                - { namespace: 'Symfony\Component\Serializer\Attribute', alias: 'Serializer' }
+        attributeRequirements:
+            attributeDefinitions:
+                -
+                    attribute: 'Symfony\Component\Routing\Attribute\Route'
+                    requires:
+                        - 'OpenApi\Attributes\Tag'
+                        - 'Symfony\Component\Security\Http\Attribute\IsGranted'
+
+services:
+    -
+        class: IWFWeb\PhpstanRules\Common\NoAnnotationAsAttributeRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Common\RequiredUseAliasRule
+        arguments:
+            aliasDefinitions: %iwfWeb.requiredUseAlias.aliasDefinitions%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Common\RequiredUseAliasGroupUseRule
+        arguments:
+            aliasDefinitions: %iwfWeb.requiredUseAlias.aliasDefinitions%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Common\AttributeRequirementsRule
+        arguments:
+            attributeDefinitions: %iwfWeb.attributeRequirements.attributeDefinitions%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Common\MbFunctionUsageRule
+        tags:
+            - phpstan.rules.rule
