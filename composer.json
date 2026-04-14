@@ -100,27 +100,5 @@
                 "rules.neon"
             ]
         }
-    },
-    "archive": {
-        "exclude": [
-            ".devcontainer",
-            ".github",
-            ".vscode",
-            "bin",
-            "docker",
-            "tests",
-            ".editorconfig",
-            ".gitignore",
-            ".gitattributes",
-            "CODEOWNERS",
-            "*.md",
-            "*.dist.php",
-            "*.xml.dist",
-            "*.neon.dist",
-            "phpstan-baseline.neon",
-            "*release*.json",
-            "!README.md",
-            "!CHANGELOG.md"
-        ]
     }
 }

@@ -1,19 +1,15 @@
 # This is what is relevant for composer installs
-.devcontainer export-ignore
-.github export-ignore
-.vscode export-ignore
-bin export-ignore
-docker export-ignore
-tests export-ignore
-.editorconfig export-ignore
-.gitignore export-ignore
-.gitattributes export-ignore
-CODEOWNERS export-ignore
-*.md export-ignore
-*.dist.php export-ignore
-*.xml.dist export-ignore
-*.neon.dist export-ignore
-phpstan-baseline.neon export-ignore
-*release*.json export-ignore
-README.md -export-ignore export-subst
-CHANGELOG.md -export-ignore export-subst
+# Whitelist: exclude everything, selectively include for distribution
+* export-ignore
+
+/config/ -export-ignore
+/config/** -export-ignore
+/src/ -export-ignore
+/src/** -export-ignore
+
+/composer.json -export-ignore
+/rules.neon -export-ignore
+
+/CHANGELOG.md -export-ignore
+/LICENSE.txt -export-ignore
+/README.md -export-ignore

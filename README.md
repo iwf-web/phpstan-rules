@@ -272,7 +272,7 @@ public function testInvalidEmail(): void
 
 ### Prerequisites
 
-- Docker with Compose, or a local PHP 8.3+ installation
+- Docker with Compose
 
 ### Bootstrap
 
