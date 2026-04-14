@@ -27,7 +27,7 @@ use PHPStan\ShouldNotHappenException;
  */
 final class AttributeRequirementsRule implements Rule
 {
-    public const string IDENTIFIER = 'iwf.attributeRequirements';
+    public const string IDENTIFIER = 'iwfWeb.attributeRequirements';
 
     /**
      * @param list<array{attribute: string, requires: list<string>}> $attributeDefinitions

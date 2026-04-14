@@ -25,7 +25,7 @@ class ClassLevelController
 
 class MissingIsGrantedController
 {
-    #[Route('/missing')]
+    #[Route('/missing')] // @error iwfWeb.controllerMissingIsGranted
     public function __invoke(): void
     {
     }
@@ -39,7 +39,7 @@ class MultiMethodController
     {
     }
 
-    #[Route('/second')]
+    #[Route('/second')] // @error iwfWeb.controllerMissingIsGranted
     public function second(): void
     {
     }

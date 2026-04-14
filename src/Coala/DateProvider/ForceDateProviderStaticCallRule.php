@@ -28,7 +28,7 @@ use PHPStan\ShouldNotHappenException;
  */
 final class ForceDateProviderStaticCallRule implements Rule
 {
-    public const string IDENTIFIER = 'iwf.forceDateProviderStaticCall';
+    public const string IDENTIFIER = 'iwfWeb.forceDateProviderStaticCall';
     private const string SENTINEL_CLASS = 'Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface';
     private const array TARGET_CLASSES = ['DateTime', 'DateTimeImmutable'];
 

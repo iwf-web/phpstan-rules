@@ -29,7 +29,7 @@ use PHPStan\ShouldNotHappenException;
  */
 final class NoAnnotationAsAttributeRule implements Rule
 {
-    public const string IDENTIFIER = 'iwf.noAnnotationAsAttribute';
+    public const string IDENTIFIER = 'iwfWeb.noAnnotationAsAttribute';
     private const string SYMFONY_PREFIX = 'Symfony\\';
 
     #[\Override]

@@ -34,10 +34,7 @@ final class ControllerIsGrantedRuleTest extends AbstractRuleTestCase
     {
         $files = [__DIR__.'/data/controller-is-granted.php'];
         $errors = $this->gatherAnalyserErrors($files);
-        self::assertRuleErrors($errors, [
-            ['identifier' => ControllerIsGrantedRule::IDENTIFIER, 'line' => 28],
-            ['identifier' => ControllerIsGrantedRule::IDENTIFIER, 'line' => 42],
-        ]);
+        self::assertRuleErrorsByAnnotation($errors, $files);
     }
 
     public function testExcludedControllerIsIgnored(): void

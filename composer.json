@@ -64,6 +64,9 @@
         ]
     },
     "scripts": {
+        "install-phpstan": "@php bin/extract-phpstan.php",
+        "post-install-cmd": "@install-phpstan",
+        "post-update-cmd": "@install-phpstan",
         "lint": "@composer exec -- php-cs-fixer fix",
         "lint:check": [
             "find . -name '*.php' -not -path './vendor/*' -not -path './tests/data/*' | xargs -n1 php -l",
@@ -74,6 +77,7 @@
             "@phpunit"
         ],
         "phpunit": "@composer exec -- phpunit",
+        "phpunit:coverage": "@composer exec -- phpunit --coverage-clover coverage.xml",
         "phpstan": "@composer exec -- phpstan --memory-limit=256M",
         "phpstan:ci": "@composer exec -- phpstan --memory-limit=256M --no-progress --error-format=github",
         "test:ci": [

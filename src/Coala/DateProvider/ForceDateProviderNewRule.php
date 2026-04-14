@@ -27,7 +27,7 @@ use PHPStan\Rules\RuleErrorBuilder;
  */
 final class ForceDateProviderNewRule implements Rule
 {
-    public const string IDENTIFIER = 'iwf.forceDateProviderNew';
+    public const string IDENTIFIER = 'iwfWeb.forceDateProviderNew';
     private const string SENTINEL_CLASS = 'Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface';
     private const array TARGET_CLASSES = ['DateTime', 'DateTimeImmutable'];
 

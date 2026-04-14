@@ -35,12 +35,9 @@ final class RequiredUseAliasRuleTest extends AbstractRuleTestCase
 
     public function testWrongAliases(): void
     {
-        $errors = $this->gatherAnalyserErrors([__DIR__.'/data/required-use-alias.php']);
-        self::assertRuleErrors($errors, [
-            ['identifier' => RequiredUseAliasRule::IDENTIFIER, 'line' => 5],
-            ['identifier' => RequiredUseAliasRule::IDENTIFIER, 'line' => 6],
-            ['identifier' => RequiredUseAliasRule::IDENTIFIER, 'line' => 7],
-        ]);
+        $files = [__DIR__.'/data/required-use-alias.php'];
+        $errors = $this->gatherAnalyserErrors($files);
+        self::assertRuleErrorsByAnnotation($errors, $files);
     }
 
     public function testCorrectAliases(): void

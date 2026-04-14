@@ -2,8 +2,8 @@
 
 namespace App;
 
-use OpenApi\Attributes as WrongAlias;
-use Symfony\Component\Validator\Constraints as Validation;
-use Coala\ModelMappingBundle\Annotation;
+use OpenApi\Attributes as WrongAlias; // @error iwfWeb.requiredUseAlias
+use Symfony\Component\Validator\Constraints as Validation; // @error iwfWeb.requiredUseAlias
+use Coala\ModelMappingBundle\Annotation; // @error iwfWeb.requiredUseAlias
 use Symfony\Component\Serializer\Attribute as Serializer;
 use SomeOther\Library\Foo;

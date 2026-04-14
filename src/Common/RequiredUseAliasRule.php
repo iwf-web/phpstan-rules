@@ -27,7 +27,7 @@ final class RequiredUseAliasRule implements Rule
 {
     use RequiredUseAliasMatcherTrait;
 
-    public const string IDENTIFIER = 'iwf.requiredUseAlias';
+    public const string IDENTIFIER = 'iwfWeb.requiredUseAlias';
 
     /**
      * @param list<array{namespace: string, alias: string}> $aliasDefinitions

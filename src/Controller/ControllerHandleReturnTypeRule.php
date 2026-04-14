@@ -39,7 +39,7 @@ final class ControllerHandleReturnTypeRule implements Rule
 {
     use AttributeFinderTrait;
 
-    public const string IDENTIFIER = 'iwf.controllerHandleReturnType';
+    public const string IDENTIFIER = 'iwfWeb.controllerHandleReturnType';
     private const string ROUTE_ATTRIBUTE = 'Symfony\Component\Routing\Attribute\Route';
     private const string HANDLE_TRAIT = 'Symfony\Component\Messenger\HandleTrait';
 

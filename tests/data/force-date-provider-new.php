@@ -6,15 +6,15 @@ class DateExamples
 {
     public function noArgs(): void
     {
-        $a = new \DateTime(); // @error iwf.forceDateProviderNew
-        $b = new \DateTimeImmutable(); // @error iwf.forceDateProviderNew
+        $a = new \DateTime(); // @error iwfWeb.forceDateProviderNew
+        $b = new \DateTimeImmutable(); // @error iwfWeb.forceDateProviderNew
     }
 
     public function relativeString(): void
     {
-        $a = new \DateTime('now'); // @error iwf.forceDateProviderNew
-        $b = new \DateTimeImmutable('tomorrow'); // @error iwf.forceDateProviderNew
-        $c = new \DateTime('+1 day'); // @error iwf.forceDateProviderNew
+        $a = new \DateTime('now'); // @error iwfWeb.forceDateProviderNew
+        $b = new \DateTimeImmutable('tomorrow'); // @error iwfWeb.forceDateProviderNew
+        $c = new \DateTime('+1 day'); // @error iwfWeb.forceDateProviderNew
     }
 
     public function absoluteString(): void

@@ -31,9 +31,7 @@ final class NoAnnotationAsAttributeRuleTest extends AbstractRuleTestCase
     {
         $files = [__DIR__.'/data/no-annotation-as-attribute.php'];
         $errors = $this->gatherAnalyserErrors($files);
-        self::assertRuleErrors($errors, [
-            ['identifier' => NoAnnotationAsAttributeRule::IDENTIFIER, 'line' => 8],
-        ]);
+        self::assertRuleErrorsByAnnotation($errors, $files);
     }
 
     public function testCorrectAttributeNamespace(): void

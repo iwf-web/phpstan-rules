@@ -26,7 +26,7 @@ use PHPStan\ShouldNotHappenException;
  */
 final class MbFunctionUsageRule implements Rule
 {
-    public const string IDENTIFIER = 'iwf.mbFunctionUsageRule';
+    public const string IDENTIFIER = 'iwfWeb.mbFunctionUsageRule';
 
     #[\Override]
     public function getNodeType(): string

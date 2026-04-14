@@ -12,7 +12,13 @@ abstract class BaseTest
 
 class ValidationTest extends BaseTest
 {
-    public function testMissingGroup(): void // @error iwf.requireInvalidDataTestGroup
+    public function testMissingGroup(): void // @error iwfWeb.requireInvalidDataTestGroup
+    {
+        $this->assertFailingValidation([]);
+    }
+
+    #[Test] // @error iwfWeb.requireInvalidDataTestGroup
+    public function missingGroup(): void
     {
         $this->assertFailingValidation([]);
     }
@@ -23,7 +29,12 @@ class ValidationTest extends BaseTest
         $this->assertFailingValidation([]);
     }
 
-    #[Test] // @error iwf.requireInvalidDataTestGroup
+    public function testMissingGroupWithTestAttr(): void // @error iwfWeb.requireInvalidDataTestGroup
+    {
+        $this->assertFailingValidation([]);
+    }
+
+    #[Test] // @error iwfWeb.requireInvalidDataTestGroup
     public function missingGroupWithTestAttr(): void
     {
         $this->assertFailingValidation([]);

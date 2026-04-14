@@ -72,3 +72,35 @@ jobs:
         run: |
           docker compose -f docker/run/compose.yml run --rm \
             ${{ env.SERVICE }} composer test:ci
+
+  coverage:
+    runs-on: ubuntu-latest
+    name: Coverage (PHP 8.3)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build
+        env:
+          XDEBUG: "false"
+        run: |
+          docker compose -f docker/run/compose.yml build php83
+
+      - name: Install dependencies
+        run: |
+          docker compose -f docker/run/compose.yml run --rm \
+            -e COMPOSER_MEMORY_LIMIT=-1 \
+            php83 composer install \
+              --prefer-dist \
+              --no-progress \
+              --no-interaction
+
+      - name: Generate coverage
+        run: bin/test.sh --coverage 8.3
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: ${{ github.ref == 'refs/heads/main' && 0 || 7 }}

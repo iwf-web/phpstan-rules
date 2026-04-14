@@ -8,7 +8,7 @@ class NonMbFunctions
     {
         // mb_check_encoding();
         // mb_chr();
-        $a = chr(65); // @error iwf.mbFunctionUsageRule
+        $a = chr(65); // @error iwfWeb.mbFunctionUsageRule
         // mb_convert_case();
         // mb_convert_encoding();
         // mb_convert_kana();
@@ -39,10 +39,10 @@ class NonMbFunctions
         // mb_language();
         // mb_list_encodings();
         // mb_ord();
-        $_a = ord($a); // @error iwf.mbFunctionUsageRule
+        $_a = ord($a); // @error iwfWeb.mbFunctionUsageRule
         // mb_output_handler();
         // mb_parse_str();
-        parse_str('foo=bar', $b); // @error iwf.mbFunctionUsageRule
+        parse_str('foo=bar', $b); // @error iwfWeb.mbFunctionUsageRule
         // mb_preferred_mime_name();
         // mb_regex_encoding();
         // mb_regex_set_options();
@@ -50,36 +50,36 @@ class NonMbFunctions
         // mb_send_mail();
         // mb_split();
         // mb_str_pad();
-        $c = str_pad('abc', 10); // @error iwf.mbFunctionUsageRule
+        $c = str_pad('abc', 10); // @error iwfWeb.mbFunctionUsageRule
         // mb_str_split();
-        $d = str_split('abc'); // @error iwf.mbFunctionUsageRule
+        $d = str_split('abc'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strcut();
         // mb_strimwidth();
         // mb_stripos();
-        $e = stripos('abc', 'b'); // @error iwf.mbFunctionUsageRule
+        $e = stripos('abc', 'b'); // @error iwfWeb.mbFunctionUsageRule
         // mb_stristr();
-        $f = stristr('abc', 'b'); // @error iwf.mbFunctionUsageRule
+        $f = stristr('abc', 'b'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strlen();
-        $g = strlen('abc'); // @error iwf.mbFunctionUsageRule
+        $g = strlen('abc'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strpos();
-        $h = strpos('abc', 'b'); // @error iwf.mbFunctionUsageRule
+        $h = strpos('abc', 'b'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strrchr();
-        $i = strrchr('a_b_c', '_'); // @error iwf.mbFunctionUsageRule
+        $i = strrchr('a_b_c', '_'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strrichr();
         // mb_strripos();
-        $j = strripos('aA_bB_cC', 'b'); // @error iwf.mbFunctionUsageRule
+        $j = strripos('aA_bB_cC', 'b'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strrpos();
-        $k = strrpos('aA_bB_cC', 'b'); // @error iwf.mbFunctionUsageRule
+        $k = strrpos('aA_bB_cC', 'b'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strstr();
-        $l = strstr('a_b_c', '_'); // @error iwf.mbFunctionUsageRule
+        $l = strstr('a_b_c', '_'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strtolower();
-        $m = strtolower('ABC'); // @error iwf.mbFunctionUsageRule
+        $m = strtolower('ABC'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strtoupper();
-        $n = strtoupper('abc'); // @error iwf.mbFunctionUsageRule
+        $n = strtoupper('abc'); // @error iwfWeb.mbFunctionUsageRule
         // mb_strwidth();
         // mb_substr();
-        $o = substr('abc', 1); // @error iwf.mbFunctionUsageRule
+        $o = substr('abc', 1); // @error iwfWeb.mbFunctionUsageRule
         // mb_substr_count();
-        $p = substr_count('abcabc', 'b'); // @error iwf.mbFunctionUsageRule
+        $p = substr_count('abcabc', 'b'); // @error iwfWeb.mbFunctionUsageRule
     }
 }

@@ -37,7 +37,7 @@ final class RequireInvalidDataTestGroupRule implements Rule
     use AttributeFinderTrait;
     use NamespaceMatcherTrait;
 
-    public const string IDENTIFIER = 'iwf.requireInvalidDataTestGroup';
+    public const string IDENTIFIER = 'iwfWeb.requireInvalidDataTestGroup';
     private const string SENTINEL_CLASS = 'Coala\TestingBundle\Tests\Helpers\AssertionHelpersTrait';
     private const string GROUP_ATTRIBUTE = 'PHPUnit\Framework\Attributes\Group';
     private const string TEST_ATTRIBUTE = 'PHPUnit\Framework\Attributes\Test';

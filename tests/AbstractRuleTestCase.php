@@ -62,8 +62,8 @@ abstract class AbstractRuleTestCase extends RuleTestCase
      *
      * Place one or more `@error identifier` tags in a line's comment to declare expected errors:
      *
-     *   $x = new DateTime();  // @error iwf.forceDateProviderNew
-     *   #[Route('/foo')]      // @error iwf.attributeRequirements @error iwf.attributeRequirements
+     *   $x = new DateTime();  // @error iwfWeb.forceDateProviderNew
+     *   #[Route('/foo')]      // @error iwfWeb.attributeRequirements @error iwfWeb.attributeRequirements
      *
      * @param list<Error>  $actualErrors
      * @param list<string> $files

@@ -12,9 +12,9 @@ class StaticCallExamples
 
     public function createFromFormatRelative(): void
     {
-        $a = \DateTime::createFromFormat('Y-m-d', 'now'); // @error iwf.forceDateProviderStaticCall
-        $b = \DateTimeImmutable::createFromFormat('Y-m-d', 'tomorrow'); // @error iwf.forceDateProviderStaticCall
-        $c = \DateTime::createFromFormat('Y-m-d', '+1 day'); // @error iwf.forceDateProviderStaticCall
+        $a = \DateTime::createFromFormat('Y-m-d', 'now'); // @error iwfWeb.forceDateProviderStaticCall
+        $b = \DateTimeImmutable::createFromFormat('Y-m-d', 'tomorrow'); // @error iwfWeb.forceDateProviderStaticCall
+        $c = \DateTime::createFromFormat('Y-m-d', '+1 day'); // @error iwfWeb.forceDateProviderStaticCall
     }
 
     public function createFromFormatAbsolute(): void

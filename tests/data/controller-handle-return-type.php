@@ -75,7 +75,7 @@ class IncorrectSpecificReturn
     #[Route('/bad')]
     public function __invoke(): \stdClass
     {
-        return $this->handle(new \stdClass());
+        return $this->handle(new \stdClass()); // @error iwfWeb.controllerHandleReturnType
     }
 }
 
@@ -87,6 +87,6 @@ class IncorrectVariableReturn
     public function __invoke(): \stdClass
     {
         $result = $this->handle(new \stdClass());
-        return $result;
+        return $result; // @error iwfWeb.controllerHandleReturnType
     }
 }

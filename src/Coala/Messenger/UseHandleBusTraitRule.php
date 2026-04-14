@@ -33,7 +33,7 @@ final class UseHandleBusTraitRule implements Rule
 {
     use NamespaceMatcherTrait;
 
-    public const string IDENTIFIER = 'iwf.useHandleBusTrait';
+    public const string IDENTIFIER = 'iwfWeb.useHandleBusTrait';
     private const string SENTINEL_CLASS = 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait';
 
     /**

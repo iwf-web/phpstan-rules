@@ -5,7 +5,7 @@ namespace App\Controller\HandleBusTrait;
 use Coala\MessengerBundle\Messenger\HandleCommandBusTrait;
 use Coala\MessengerBundle\Messenger\HandleQueryBusTrait;
 
-class MissingCommandBusTrait // @error iwf.useHandleBusTrait
+class MissingCommandBusTrait // @error iwfWeb.useHandleBusTrait
 {
     public function setCommandBus(object $bus): void
     {
@@ -13,7 +13,7 @@ class MissingCommandBusTrait // @error iwf.useHandleBusTrait
     }
 }
 
-class MissingQueryBusTrait // @error iwf.useHandleBusTrait
+class MissingQueryBusTrait // @error iwfWeb.useHandleBusTrait
 {
     public function setQueryBus(object $bus): void
     {

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Usage: bin/composer.sh <composer-args...>
+# Usage: bin/install.sh
 #
-# Runs Composer with the given arguments.
+# Installs phpstan files by extracting the *.phar
 set -euo pipefail
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # shellcheck source=_env.sh
 source "$SCRIPT_DIR/_env.sh"
 
-run_composer "$@"
+run_composer install-phpstan

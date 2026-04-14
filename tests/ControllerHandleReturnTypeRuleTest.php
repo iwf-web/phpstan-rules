@@ -30,14 +30,11 @@ final class ControllerHandleReturnTypeRuleTest extends AbstractRuleTestCase
         );
     }
 
-    public function testCorrectReturnTypes(): void
+    public function testIncorrectReturnTypes(): void
     {
         $files = [__DIR__.'/data/controller-handle-return-type.php'];
         $errors = $this->gatherAnalyserErrors($files);
-        self::assertRuleErrors($errors, [
-            ['identifier' => ControllerHandleReturnTypeRule::IDENTIFIER, 'line' => 78],
-            ['identifier' => ControllerHandleReturnTypeRule::IDENTIFIER, 'line' => 90],
-        ]);
+        self::assertRuleErrorsByAnnotation($errors, $files);
     }
 
     public function testOutsideNamespaceIsIgnored(): void

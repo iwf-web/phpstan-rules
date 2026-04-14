@@ -7,11 +7,10 @@ x-base: &base
   environment:
     PHP_IDE_CONFIG: serverName=iwf-phpstan-rules # for PHPStorm debugging
   command: >
-    sh -c "composer update &&
+    sh -c "cp /composer-lock/composer.lock /app/composer.lock 2>/dev/null;
+           composer update &&
+           cp /app/composer.lock /composer-lock/composer.lock &&
            composer test"
-  volumes:
-    - ./../..:/app
-    - ~/.ssh:/root/.ssh
 
 services:
   php85:
@@ -22,6 +21,10 @@ services:
       args:
         PHP_VERSION: "8.5"
         XDEBUG: "${XDEBUG:-true}"
+    volumes:
+      - ./../..:/app
+      - vendor-php85:/app/vendor
+      - lock-php85:/composer-lock
   php84:
     <<: *base
     container_name: iwf-phpstan-rules-php84
@@ -30,6 +33,10 @@ services:
       args:
         PHP_VERSION: "8.4"
         XDEBUG: "${XDEBUG:-true}"
+    volumes:
+      - ./../..:/app
+      - vendor-php84:/app/vendor
+      - lock-php84:/composer-lock
   php83:
     <<: *base
     container_name: iwf-phpstan-rules-php83
@@ -38,3 +45,15 @@ services:
       args:
         PHP_VERSION: "8.3"
         XDEBUG: "${XDEBUG:-true}"
+    volumes:
+      - ./../..:/app
+      - vendor-php83:/app/vendor
+      - lock-php83:/composer-lock
+
+volumes:
+  vendor-php83:
+  vendor-php84:
+  vendor-php85:
+  lock-php83:
+  lock-php84:
+  lock-php85:

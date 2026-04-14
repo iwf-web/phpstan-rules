@@ -274,13 +274,23 @@ public function testInvalidEmail(): void
 
 - Docker with Compose, or a local PHP 8.3+ installation
 
+### Bootstrap
+
+After cloning the repository, run the install script to set up the vendor directory and extract PHPStan source files for IDE indexing:
+
+```bash
+bin/install.sh
+```
+
+This is equivalent to running `composer install` — the PHPStan extraction is triggered automatically as a post-install hook and requires no additional IDE configuration.
+
 ### Running tests
 
 ```bash
 bin/test.sh
 ```
 
-Runs PHPStan and PHPUnit. If a local PHP binary is found it is used directly; otherwise all configured Docker services are run sequentially.
+Runs PHPStan and PHPUnit against all configured Docker services sequentially.
 
 To target a specific PHP version:
 
@@ -306,7 +316,7 @@ composer lint:check
 bin/composer.sh <args>
 ```
 
-Runs Composer in the local environment or in the default Docker container when no local PHP is available. Examples:
+Runs Composer inside the default Docker container. Examples:
 
 ```bash
 bin/composer.sh install

@@ -8,12 +8,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class SomeController
 {
-    #[Route('/missing-all')] // @error iwf.attributeRequirements @error iwf.attributeRequirements
+    #[Route('/missing-all')] // @error iwfWeb.attributeRequirements @error iwfWeb.attributeRequirements
     public function index(): void
     {
     }
 
-    #[Route('/missing-isgrant')] // @error iwf.attributeRequirements
+    #[Route('/missing-isgrant')] // @error iwfWeb.attributeRequirements
     #[Tag(name: 'bar')]
     public function show(): void
     {

@@ -6,11 +6,11 @@ class FuncCallExamples
 {
     public function bannedFunctions(): void
     {
-        $a = time(); // @error iwf.forceDateProviderFuncCall
-        $b = date('Y-m-d'); // @error iwf.forceDateProviderFuncCall
-        $c = mktime(); // @error iwf.forceDateProviderFuncCall
-        $d = strtotime('now'); // @error iwf.forceDateProviderFuncCall
-        $e = gmdate('Y-m-d'); // @error iwf.forceDateProviderFuncCall
+        $a = time(); // @error iwfWeb.forceDateProviderFuncCall
+        $b = date('Y-m-d'); // @error iwfWeb.forceDateProviderFuncCall
+        $c = mktime(); // @error iwfWeb.forceDateProviderFuncCall
+        $d = strtotime('now'); // @error iwfWeb.forceDateProviderFuncCall
+        $e = gmdate('Y-m-d'); // @error iwfWeb.forceDateProviderFuncCall
     }
 
     public function allowedFunctions(): void

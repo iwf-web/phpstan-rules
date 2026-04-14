@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Usage: bin/lint.sh
 #
-# Runs PHP CS Fixer via "composer lint" using the local PHP binary if available,
-# otherwise falls back to the default (lowest) Docker service.
+# Runs linting scripts via "composer lint"
 set -euo pipefail
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )

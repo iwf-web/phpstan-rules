@@ -33,7 +33,7 @@ final class ControllerIsGrantedRule implements Rule
     use AttributeFinderTrait;
     use NamespaceMatcherTrait;
 
-    public const string IDENTIFIER = 'iwf.controllerMissingIsGranted';
+    public const string IDENTIFIER = 'iwfWeb.controllerMissingIsGranted';
     private const string ROUTE_ATTRIBUTE = 'Symfony\Component\Routing\Attribute\Route';
     private const string IS_GRANTED_ATTRIBUTE = 'Symfony\Component\Security\Http\Attribute\IsGranted';
 

@@ -28,7 +28,7 @@ use PHPStan\ShouldNotHappenException;
  */
 final class ForceDateProviderFuncCallRule implements Rule
 {
-    public const string IDENTIFIER = 'iwf.forceDateProviderFuncCall';
+    public const string IDENTIFIER = 'iwfWeb.forceDateProviderFuncCall';
     private const string SENTINEL_CLASS = 'Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface';
     private const array BANNED_FUNCTIONS = ['time', 'date', 'mktime', 'strtotime', 'gmdate'];
 
