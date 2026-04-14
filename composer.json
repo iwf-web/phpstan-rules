@@ -46,12 +46,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IWF\\RectorRules\\": "src/"
+            "IWF\\PhpstanRules\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IWF\\RectorRules\\Tests\\": "tests/"
+            "IWF\\PhpstanRules\\Tests\\": "tests/"
         },
         "classmap": [
             "tests/data/"

@@ -68,14 +68,14 @@ parameters:
 
 services:
     -
-        class: IWF\RectorRules\Controller\ControllerHandleReturnTypeRule
+        class: IWF\PhpstanRules\Controller\ControllerHandleReturnTypeRule
         arguments:
             controllerNamespace: %iwf.controller.controllerNamespace%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Controller\ControllerIsGrantedRule
+        class: IWF\PhpstanRules\Controller\ControllerIsGrantedRule
         arguments:
             controllerNamespace: %iwf.controller.controllerNamespace%
             excludedNamespaces: %iwf.controller.excludedNamespaces%
@@ -84,55 +84,55 @@ services:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Common\NoAnnotationAsAttributeRule
+        class: IWF\PhpstanRules\Common\NoAnnotationAsAttributeRule
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Common\RequiredUseAliasRule
+        class: IWF\PhpstanRules\Common\RequiredUseAliasRule
         arguments:
             aliasDefinitions: %iwf.requiredUseAlias.aliasDefinitions%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Common\RequiredUseAliasGroupUseRule
+        class: IWF\PhpstanRules\Common\RequiredUseAliasGroupUseRule
         arguments:
             aliasDefinitions: %iwf.requiredUseAlias.aliasDefinitions%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Common\AttributeRequirementsRule
+        class: IWF\PhpstanRules\Common\AttributeRequirementsRule
         arguments:
             attributeDefinitions: %iwf.attributeRequirements.attributeDefinitions%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Common\MbFunctionUsageRule
+        class: IWF\PhpstanRules\Common\MbFunctionUsageRule
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Coala\DateProvider\ForceDateProviderNewRule
+        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderNewRule
         arguments:
             allowedFormats: %iwf.forceDateProvider.allowedFormats%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Coala\DateProvider\ForceDateProviderFuncCallRule
+        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderFuncCallRule
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Coala\DateProvider\ForceDateProviderStaticCallRule
+        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderStaticCallRule
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Coala\Messenger\UseHandleBusTraitRule
+        class: IWF\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule
         arguments:
             handleBusTraitMappings: %iwf.handleBusTrait.handleBusTraitMappings%
             handleBusTraitNamespaces: %iwf.handleBusTrait.handleBusTraitNamespaces%
@@ -140,7 +140,7 @@ services:
             - phpstan.rules.rule
 
     -
-        class: IWF\RectorRules\Coala\Testing\RequireInvalidDataTestGroupRule
+        class: IWF\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule
         arguments:
             requireInvalidDataTestGroupNamespaces: %iwf.requireInvalidDataTestGroup.requireInvalidDataTestGroupNamespaces%
         tags:

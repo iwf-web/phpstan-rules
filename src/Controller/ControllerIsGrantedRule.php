@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Controller;
+namespace IWF\PhpstanRules\Controller;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;

@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Coala\Messenger;
+namespace IWF\PhpstanRules\Coala\Messenger;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
