@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint (PHP 8.3)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build
+        env:
+          XDEBUG: "false"
+        run: |
+          docker compose -f docker/run/compose.yml build \
+            php83
+
+      - name: Install dependencies
+        run: |
+          docker compose -f docker/run/compose.yml run --rm \
+            -e COMPOSER_MEMORY_LIMIT=-1 \
+            php83 composer install \
+              --prefer-dist \
+              --no-progress \
+              --no-interaction
+
+      - name: Lint
+        run: |
+          docker compose -f docker/run/compose.yml run --rm \
+            php83 composer lint:check
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ["8.3", "8.4", "8.5"]
+    name: Test (PHP ${{ matrix.php-version }})
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set service name
+        run: |
+          echo "SERVICE=php$(echo '${{ matrix.php-version }}' | tr -d '.')" >> $GITHUB_ENV
+
+      - name: Build
+        env:
+          XDEBUG: "false"
+        run: |
+          docker compose -f docker/run/compose.yml build \
+            ${{ env.SERVICE }}
+
+      - name: Install dependencies
+        run: |
+          docker compose -f docker/run/compose.yml run --rm \
+            -e COMPOSER_MEMORY_LIMIT=-1 \
+            ${{ env.SERVICE }} composer install \
+              --prefer-dist \
+              --no-progress \
+              --no-interaction
+
+      - name: Test
+        run: |
+          docker compose -f docker/run/compose.yml run --rm \
+            ${{ env.SERVICE }} composer test:ci
+
+  coverage:
+    runs-on: ubuntu-latest
+    name: Coverage (PHP 8.3)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build
+        env:
+          XDEBUG: "false"
+        run: |
+          docker compose -f docker/run/compose.yml build php83
+
+      - name: Install dependencies
+        run: |
+          docker compose -f docker/run/compose.yml run --rm \
+            -e COMPOSER_MEMORY_LIMIT=-1 \
+            php83 composer install \
+              --prefer-dist \
+              --no-progress \
+              --no-interaction
+
+      - name: Generate coverage
+        run: bin/test.sh --coverage 8.3
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: ${{ github.ref == 'refs/heads/main' && 0 || 7 }}
+
+  sonarqube:
+    runs-on: ubuntu-latest
+    name: Sonar
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
