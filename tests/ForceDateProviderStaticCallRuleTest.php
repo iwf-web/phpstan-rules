@@ -10,9 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Tests;
+namespace IWFWeb\PhpstanRules\Tests;
 
-use IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderStaticCallRule;
+use IWFWeb\PhpstanRules\Coala\DateProvider\ForceDateProviderStaticCallRule;
 use PHPStan\Rules\Rule;
 
 /**

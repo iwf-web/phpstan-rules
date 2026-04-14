@@ -10,9 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Tests;
+namespace IWFWeb\PhpstanRules\Tests;
 
-use IWF\PhpstanRules\Common\AttributeRequirementsRule;
+use IWFWeb\PhpstanRules\Common\AttributeRequirementsRule;
 use PHPStan\Rules\Rule;
 use Symfony\Component\Routing\Attribute\Route;
 

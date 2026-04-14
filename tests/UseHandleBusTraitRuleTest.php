@@ -10,11 +10,11 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Tests;
+namespace IWFWeb\PhpstanRules\Tests;
 
 use Coala\MessengerBundle\Messenger\HandleCommandBusTrait;
 use Coala\MessengerBundle\Messenger\HandleQueryBusTrait;
-use IWF\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule;
+use IWFWeb\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule;
 use PHPStan\Rules\Rule;
 
 /**

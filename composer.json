@@ -12,22 +12,22 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "D3strukt0r",
-            "email": "dev@d3strukt0r.dev",
-            "homepage": "https://github.com/D3strukt0r",
-            "role": "Maintainer"
-        },
-        {
             "name": "Oliver Zieschang",
             "email": "o.zieschang@iwf.ch",
             "homepage": "https://github.com/Oliver-Zieschang",
             "role": "Maintainer"
         },
         {
+            "name": "D3strukt0r",
+            "email": "dev@d3strukt0r.dev",
+            "homepage": "https://github.com/D3strukt0r",
+            "role": "Developer"
+        },
+        {
             "name": "Xeno Suter",
             "email": "x.suter@iwf.ch",
             "homepage": "https://github.com/xeno-suter",
-            "role": "Maintainer"
+            "role": "Developer"
         }
     ],
     "support": {
@@ -52,12 +52,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IWF\\PhpstanRules\\": "src/"
+            "IWFWeb\\PhpstanRules\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IWF\\PhpstanRules\\Tests\\": "tests/"
+            "IWFWeb\\PhpstanRules\\Tests\\": "tests/"
         },
         "classmap": [
             "tests/data/"

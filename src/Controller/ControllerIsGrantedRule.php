@@ -10,10 +10,10 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Controller;
+namespace IWFWeb\PhpstanRules\Controller;
 
-use IWF\PhpstanRules\Concern\AttributeFinderTrait;
-use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
+use IWFWeb\PhpstanRules\Concern\AttributeFinderTrait;
+use IWFWeb\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;

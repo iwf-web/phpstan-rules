@@ -10,10 +10,10 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Tests;
+namespace IWFWeb\PhpstanRules\Tests;
 
 use App\Controller\Api\Security\LoginController;
-use IWF\PhpstanRules\Controller\ControllerIsGrantedRule;
+use IWFWeb\PhpstanRules\Controller\ControllerIsGrantedRule;
 use PHPStan\Rules\Rule;
 
 /**

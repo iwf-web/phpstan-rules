@@ -35,7 +35,7 @@ Several rules require or accept configuration parameters under the `iwf` key.
 
 ```neon
 parameters:
-    iwf:
+    iwfWeb:
         controller:
             controllerNamespace: 'App\Controller'
             excludedNamespaces: []
@@ -49,7 +49,7 @@ Enforce that specific namespaces are always imported with a defined alias:
 
 ```neon
 parameters:
-    iwf:
+    iwfWeb:
         requiredUseAlias:
             aliasDefinitions:
                 - { namespace: 'Doctrine\ORM\Mapping', alias: 'ORM' }
@@ -62,7 +62,7 @@ Enforce that certain attributes may only appear alongside required companion att
 
 ```neon
 parameters:
-    iwf:
+    iwfWeb:
         attributeRequirements:
             attributeDefinitions:
                 -
@@ -76,7 +76,7 @@ parameters:
 
 ```neon
 parameters:
-    iwf:
+    iwfWeb:
         forceDateProvider:
             allowedFormats:
                 - 'Y-m-d'
@@ -90,7 +90,7 @@ parameters:
 
 ```neon
 parameters:
-    iwf:
+    iwfWeb:
         handleBusTrait:
             handleBusTraitMappings:
                 queryBus: 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait'
@@ -102,7 +102,7 @@ parameters:
 
 ```neon
 parameters:
-    iwf:
+    iwfWeb:
         requireInvalidDataTestGroup:
             requireInvalidDataTestGroupNamespaces:
                 - 'App\Tests'

@@ -10,9 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Tests;
+namespace IWFWeb\PhpstanRules\Tests;
 
-use IWF\PhpstanRules\Common\NoAnnotationAsAttributeRule;
+use IWFWeb\PhpstanRules\Common\NoAnnotationAsAttributeRule;
 use PHPStan\Rules\Rule;
 
 /**

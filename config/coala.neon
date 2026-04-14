@@ -1,5 +1,5 @@
 parametersSchema:
-    iwf: structure([
+    iwfWeb: structure([
         handleBusTrait: structure([
             handleBusTraitMappings: arrayOf(string())
             handleBusTraitNamespaces: listOf(string())
@@ -13,7 +13,7 @@ parametersSchema:
     ])
 
 parameters:
-    iwf:
+    iwfWeb:
         handleBusTrait:
             handleBusTraitMappings: []
             handleBusTraitNamespaces:
@@ -31,24 +31,24 @@ parameters:
 
 services:
     -
-        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderNewRule
+        class: IWFWeb\PhpstanRules\Coala\DateProvider\ForceDateProviderNewRule
         arguments:
             allowedFormats: %iwf.forceDateProvider.allowedFormats%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderFuncCallRule
+        class: IWFWeb\PhpstanRules\Coala\DateProvider\ForceDateProviderFuncCallRule
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderStaticCallRule
+        class: IWFWeb\PhpstanRules\Coala\DateProvider\ForceDateProviderStaticCallRule
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule
+        class: IWFWeb\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule
         arguments:
             handleBusTraitMappings: %iwf.handleBusTrait.handleBusTraitMappings%
             handleBusTraitNamespaces: %iwf.handleBusTrait.handleBusTraitNamespaces%
@@ -56,7 +56,7 @@ services:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule
+        class: IWFWeb\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule
         arguments:
             requireInvalidDataTestGroupNamespaces: %iwf.requireInvalidDataTestGroup.requireInvalidDataTestGroupNamespaces%
         tags:

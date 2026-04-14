@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Coala\DateProvider;
+namespace IWFWeb\PhpstanRules\Coala\DateProvider;
 
 use Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface;
 use PhpParser\Node;

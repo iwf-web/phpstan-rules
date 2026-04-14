@@ -1,5 +1,5 @@
 parametersSchema:
-    iwf: structure([
+    iwfWeb: structure([
         controller: structure([
             controllerNamespace: string()
             excludedNamespaces: listOf(string())
@@ -8,7 +8,7 @@ parametersSchema:
     ])
 
 parameters:
-    iwf:
+    iwfWeb:
         controller:
             controllerNamespace: 'App\Controller\Foo'
             excludedNamespaces: []
@@ -17,14 +17,14 @@ parameters:
 
 services:
     -
-        class: IWF\PhpstanRules\Controller\ControllerHandleReturnTypeRule
+        class: IWFWeb\PhpstanRules\Controller\ControllerHandleReturnTypeRule
         arguments:
             controllerNamespace: %iwf.controller.controllerNamespace%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Controller\ControllerIsGrantedRule
+        class: IWFWeb\PhpstanRules\Controller\ControllerIsGrantedRule
         arguments:
             controllerNamespace: %iwf.controller.controllerNamespace%
             excludedNamespaces: %iwf.controller.excludedNamespaces%

@@ -10,11 +10,11 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Coala\Testing;
+namespace IWFWeb\PhpstanRules\Coala\Testing;
 
 use Coala\TestingBundle\Tests\Helpers\AssertionHelpersTrait;
-use IWF\PhpstanRules\Concern\AttributeFinderTrait;
-use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
+use IWFWeb\PhpstanRules\Concern\AttributeFinderTrait;
+use IWFWeb\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;

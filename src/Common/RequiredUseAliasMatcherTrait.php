@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Common;
+namespace IWFWeb\PhpstanRules\Common;
 
 use PhpParser\Node\UseItem;
 use PHPStan\Rules\RuleError;

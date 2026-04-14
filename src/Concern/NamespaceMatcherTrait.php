@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Concern;
+namespace IWFWeb\PhpstanRules\Concern;
 
 trait NamespaceMatcherTrait
 {

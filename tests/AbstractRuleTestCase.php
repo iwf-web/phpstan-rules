@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Tests;
+namespace IWFWeb\PhpstanRules\Tests;
 
 use PHPStan\Analyser\Error;
 use PHPStan\Rules\Rule;

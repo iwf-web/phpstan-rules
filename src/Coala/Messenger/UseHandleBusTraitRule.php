@@ -10,10 +10,10 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Coala\Messenger;
+namespace IWFWeb\PhpstanRules\Coala\Messenger;
 
 use Coala\MessengerBundle\Messenger\HandleQueryBusTrait;
-use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
+use IWFWeb\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\TraitUse;

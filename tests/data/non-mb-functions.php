@@ -1,6 +1,6 @@
 <?php /** @noinspection _ALL */ declare(strict_types=1);
 
-namespace IWF\PhpstanRules\Tests\data;
+namespace IWFWeb\PhpstanRules\Tests\data;
 
 class NonMbFunctions
 {

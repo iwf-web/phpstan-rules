@@ -10,9 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Tests;
+namespace IWFWeb\PhpstanRules\Tests;
 
-use IWF\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule;
+use IWFWeb\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule;
 use PHPStan\Rules\Rule;
 
 /**

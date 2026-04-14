@@ -10,9 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Controller;
+namespace IWFWeb\PhpstanRules\Controller;
 
-use IWF\PhpstanRules\Concern\AttributeFinderTrait;
+use IWFWeb\PhpstanRules\Concern\AttributeFinderTrait;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;

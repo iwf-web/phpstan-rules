@@ -1,5 +1,5 @@
 parametersSchema:
-    iwf: structure([
+    iwfWeb: structure([
         requiredUseAlias: structure([
             aliasDefinitions: listOf(structure([
                 namespace: string()
@@ -15,7 +15,7 @@ parametersSchema:
     ])
 
 parameters:
-    iwf:
+    iwfWeb:
         requiredUseAlias:
             aliasDefinitions:
                 - { namespace: 'Doctrine\ORM\Mapping', alias: 'ORM' }
@@ -34,32 +34,32 @@ parameters:
 
 services:
     -
-        class: IWF\PhpstanRules\Common\NoAnnotationAsAttributeRule
+        class: IWFWeb\PhpstanRules\Common\NoAnnotationAsAttributeRule
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Common\RequiredUseAliasRule
+        class: IWFWeb\PhpstanRules\Common\RequiredUseAliasRule
         arguments:
             aliasDefinitions: %iwf.requiredUseAlias.aliasDefinitions%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Common\RequiredUseAliasGroupUseRule
+        class: IWFWeb\PhpstanRules\Common\RequiredUseAliasGroupUseRule
         arguments:
             aliasDefinitions: %iwf.requiredUseAlias.aliasDefinitions%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Common\AttributeRequirementsRule
+        class: IWFWeb\PhpstanRules\Common\AttributeRequirementsRule
         arguments:
             attributeDefinitions: %iwf.attributeRequirements.attributeDefinitions%
         tags:
             - phpstan.rules.rule
 
     -
-        class: IWF\PhpstanRules\Common\MbFunctionUsageRule
+        class: IWFWeb\PhpstanRules\Common\MbFunctionUsageRule
         tags:
             - phpstan.rules.rule
