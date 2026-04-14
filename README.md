@@ -6,6 +6,7 @@ Custom PHPStan rules used across IWF projects to enforce coding standards, secur
 [![Version](https://img.shields.io/packagist/v/iwf-web/phpstan-rules?label=latest%20release)][packagist]
 [![Version (including pre-releases)](https://img.shields.io/packagist/v/iwf-web/phpstan-rules?include_prereleases&label=latest%20pre-release)][packagist]
 [![Downloads on Packagist](https://img.shields.io/packagist/dt/iwf-web/phpstan-rules)][packagist]
+[![Coverage](https://sonar.iwf.io/api/project_badges/measure?project=phpstan-rules&metric=coverage&token=sqb_711e9e62f13d6a2ffedc78e2e4ce597e86a0108c)](https://sonar.iwf.io/dashboard?id=phpstan-rules)
 
 ## Requirements
 
