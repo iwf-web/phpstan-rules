@@ -1,0 +1,63 @@
+parametersSchema:
+    iwfWeb: structure([
+        handleBusTrait: structure([
+            handleBusTraitMappings: arrayOf(string())
+            handleBusTraitNamespaces: listOf(string())
+        ])
+        requireInvalidDataTestGroup: structure([
+            requireInvalidDataTestGroupNamespaces: listOf(string())
+        ])
+        forceDateProvider: structure([
+            allowedFormats: listOf(string())
+        ])
+    ])
+
+parameters:
+    iwfWeb:
+        handleBusTrait:
+            handleBusTraitMappings: []
+            handleBusTraitNamespaces:
+                - 'App\Controller'
+        requireInvalidDataTestGroup:
+            requireInvalidDataTestGroupNamespaces:
+                - 'App\Tests'
+        forceDateProvider:
+            allowedFormats:
+                - 'Y-m-d'
+                - 'Y-m-d H:i:s'
+                - 'Y-m-d\TH:i:s'
+                - 'Y-m-d\TH:i:sP'
+                - 'U'
+
+services:
+    -
+        class: IWFWeb\PhpstanRules\Coala\DateProvider\ForceDateProviderNewRule
+        arguments:
+            allowedFormats: %iwfWeb.forceDateProvider.allowedFormats%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Coala\DateProvider\ForceDateProviderFuncCallRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Coala\DateProvider\ForceDateProviderStaticCallRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule
+        arguments:
+            handleBusTraitMappings: %iwfWeb.handleBusTrait.handleBusTraitMappings%
+            handleBusTraitNamespaces: %iwfWeb.handleBusTrait.handleBusTraitNamespaces%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule
+        arguments:
+            requireInvalidDataTestGroupNamespaces: %iwfWeb.requireInvalidDataTestGroup.requireInvalidDataTestGroupNamespaces%
+        tags:
+            - phpstan.rules.rule
