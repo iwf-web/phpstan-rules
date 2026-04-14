@@ -12,6 +12,7 @@
 
 namespace IWF\PhpstanRules\Coala\Testing;
 
+use Coala\TestingBundle\Tests\Helpers\AssertionHelpersTrait;
 use IWF\PhpstanRules\Concern\AttributeFinderTrait;
 use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
@@ -26,29 +27,31 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test methods calling assertFailingValidation must carry #[Group('invalid-data-test')].
  *
  * @implements Rule<ClassMethod>
  */
-final class RequireInvalidDataTestGroupRule implements Rule
+final readonly class RequireInvalidDataTestGroupRule implements Rule
 {
     use AttributeFinderTrait;
     use NamespaceMatcherTrait;
 
     public const string IDENTIFIER = 'iwfWeb.requireInvalidDataTestGroup';
-    private const string SENTINEL_CLASS = 'Coala\TestingBundle\Tests\Helpers\AssertionHelpersTrait';
-    private const string GROUP_ATTRIBUTE = 'PHPUnit\Framework\Attributes\Group';
-    private const string TEST_ATTRIBUTE = 'PHPUnit\Framework\Attributes\Test';
+    private const string SENTINEL_CLASS = AssertionHelpersTrait::class;
+    private const string GROUP_ATTRIBUTE = Group::class;
+    private const string TEST_ATTRIBUTE = Test::class;
     private const string REQUIRED_GROUP = 'invalid-data-test';
 
     /**
      * @param list<string> $requireInvalidDataTestGroupNamespaces
      */
     public function __construct(
-        private readonly ReflectionProvider $reflectionProvider,
-        private readonly array $requireInvalidDataTestGroupNamespaces = ['App\Tests'],
+        private ReflectionProvider $reflectionProvider,
+        private array $requireInvalidDataTestGroupNamespaces = ['App\Tests'],
     ) {}
 
     #[\Override]

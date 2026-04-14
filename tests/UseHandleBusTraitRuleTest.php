@@ -12,6 +12,8 @@
 
 namespace IWF\PhpstanRules\Tests;
 
+use Coala\MessengerBundle\Messenger\HandleCommandBusTrait;
+use Coala\MessengerBundle\Messenger\HandleQueryBusTrait;
 use IWF\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule;
 use PHPStan\Rules\Rule;
 
@@ -27,8 +29,8 @@ final class UseHandleBusTraitRuleTest extends AbstractRuleTestCase
         return new UseHandleBusTraitRule(
             self::createReflectionProvider(),
             handleBusTraitMappings: [
-                'commandBus' => 'Coala\MessengerBundle\Messenger\HandleCommandBusTrait',
-                'queryBus' => 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait',
+                'commandBus' => HandleCommandBusTrait::class,
+                'queryBus' => HandleQueryBusTrait::class,
             ],
             handleBusTraitNamespaces: ['App\Controller'],
         );

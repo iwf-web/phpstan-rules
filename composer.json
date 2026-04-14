@@ -42,11 +42,11 @@
         "php": ">=8.3"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.95",
         "iwf-web/php-coding-standard": "^1.0",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^12.0",
-        "rector/rector": "^2.3",
+        "rector/rector": "^2.4",
         "symfony/messenger": "^7.0|^8.0",
         "symfony/routing": "^7.0|^8.0"
     },
@@ -76,14 +76,19 @@
             "@phpstan",
             "@phpunit"
         ],
+        "test:ci": [
+            "@phpstan:ci",
+            "@phpunit"
+        ],
         "phpunit": "@composer exec -- phpunit",
         "phpunit:coverage": "@composer exec -- phpunit --coverage-clover coverage.xml",
         "phpstan": "@composer exec -- phpstan --memory-limit=256M",
         "phpstan:ci": "@composer exec -- phpstan --memory-limit=256M --no-progress --error-format=github",
-        "test:ci": [
-            "@phpstan:ci",
-            "@phpunit"
-        ]
+        "rector": [
+            "@composer exec -- rector",
+            "@lint"
+        ],
+        "rector:check": "@composer exec -- rector --dry-run"
     },
     "minimum-stability": "stable",
     "config": {

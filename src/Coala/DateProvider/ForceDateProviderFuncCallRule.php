@@ -12,6 +12,7 @@
 
 namespace IWF\PhpstanRules\Coala\DateProvider;
 
+use Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
@@ -26,10 +27,10 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<FuncCall>
  */
-final class ForceDateProviderFuncCallRule implements Rule
+final readonly class ForceDateProviderFuncCallRule implements Rule
 {
     public const string IDENTIFIER = 'iwfWeb.forceDateProviderFuncCall';
-    private const string SENTINEL_CLASS = 'Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface';
+    private const string SENTINEL_CLASS = DateProviderInterface::class;
     private const array BANNED_FUNCTIONS = ['time', 'date', 'mktime', 'strtotime', 'gmdate'];
 
     /**
@@ -45,7 +46,7 @@ final class ForceDateProviderFuncCallRule implements Rule
     private const array REQUIRES_ARGS_FUNCTIONS = ['mktime'];
 
     public function __construct(
-        private readonly ReflectionProvider $reflectionProvider,
+        private ReflectionProvider $reflectionProvider,
     ) {}
 
     #[\Override]

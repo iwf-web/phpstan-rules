@@ -12,6 +12,7 @@
 
 namespace IWF\PhpstanRules\Coala\DateProvider;
 
+use Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PHPStan\Analyser\Scope;
@@ -25,18 +26,18 @@ use PHPStan\Rules\RuleErrorBuilder;
  *
  * @implements Rule<New_>
  */
-final class ForceDateProviderNewRule implements Rule
+final readonly class ForceDateProviderNewRule implements Rule
 {
     public const string IDENTIFIER = 'iwfWeb.forceDateProviderNew';
-    private const string SENTINEL_CLASS = 'Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface';
+    private const string SENTINEL_CLASS = DateProviderInterface::class;
     private const array TARGET_CLASSES = ['DateTime', 'DateTimeImmutable'];
 
     /**
      * @param list<string> $allowedFormats
      */
     public function __construct(
-        private readonly ReflectionProvider $reflectionProvider,
-        private readonly array $allowedFormats = ['Y-m-d', 'Y-m-d H:i:s', 'Y-m-d\TH:i:s', 'Y-m-d\TH:i:sP', 'U'],
+        private ReflectionProvider $reflectionProvider,
+        private array $allowedFormats = ['Y-m-d', 'Y-m-d H:i:s', 'Y-m-d\TH:i:s', 'Y-m-d\TH:i:sP', 'U'],
     ) {}
 
     #[\Override]

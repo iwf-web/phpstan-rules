@@ -12,6 +12,7 @@
 
 namespace IWF\PhpstanRules\Coala\DateProvider;
 
+use Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
@@ -26,14 +27,14 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<StaticCall>
  */
-final class ForceDateProviderStaticCallRule implements Rule
+final readonly class ForceDateProviderStaticCallRule implements Rule
 {
     public const string IDENTIFIER = 'iwfWeb.forceDateProviderStaticCall';
-    private const string SENTINEL_CLASS = 'Coala\DateProviderBundle\Service\DateProvider\DateProviderInterface';
+    private const string SENTINEL_CLASS = DateProviderInterface::class;
     private const array TARGET_CLASSES = ['DateTime', 'DateTimeImmutable'];
 
     public function __construct(
-        private readonly ReflectionProvider $reflectionProvider,
+        private ReflectionProvider $reflectionProvider,
     ) {}
 
     #[\Override]

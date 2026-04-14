@@ -14,6 +14,7 @@ namespace IWF\PhpstanRules\Tests;
 
 use IWF\PhpstanRules\Common\AttributeRequirementsRule;
 use PHPStan\Rules\Rule;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @extends AbstractRuleTestCase<AttributeRequirementsRule>
@@ -27,7 +28,7 @@ final class AttributeRequirementsRuleTest extends AbstractRuleTestCase
         return new AttributeRequirementsRule(
             attributeDefinitions: [
                 [
-                    'attribute' => 'Symfony\Component\Routing\Attribute\Route',
+                    'attribute' => Route::class,
                     'requires' => [
                         'OpenApi\Attributes\Tag',
                         'Symfony\Component\Security\Http\Attribute\IsGranted',

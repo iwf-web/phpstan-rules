@@ -12,6 +12,7 @@
 
 namespace IWF\PhpstanRules\Coala\Messenger;
 
+use Coala\MessengerBundle\Messenger\HandleQueryBusTrait;
 use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
@@ -29,21 +30,21 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<Class_>
  */
-final class UseHandleBusTraitRule implements Rule
+final readonly class UseHandleBusTraitRule implements Rule
 {
     use NamespaceMatcherTrait;
 
     public const string IDENTIFIER = 'iwfWeb.useHandleBusTrait';
-    private const string SENTINEL_CLASS = 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait';
+    private const string SENTINEL_CLASS = HandleQueryBusTrait::class;
 
     /**
      * @param array<string, string> $handleBusTraitMappings   key => traitFQCN
      * @param list<string>          $handleBusTraitNamespaces
      */
     public function __construct(
-        private readonly ReflectionProvider $reflectionProvider,
-        private readonly array $handleBusTraitMappings = [],
-        private readonly array $handleBusTraitNamespaces = ['App\Controller'],
+        private ReflectionProvider $reflectionProvider,
+        private array $handleBusTraitMappings = [],
+        private array $handleBusTraitNamespaces = ['App\Controller'],
     ) {}
 
     #[\Override]

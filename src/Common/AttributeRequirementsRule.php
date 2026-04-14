@@ -25,7 +25,7 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<ClassMethod>
  */
-final class AttributeRequirementsRule implements Rule
+final readonly class AttributeRequirementsRule implements Rule
 {
     public const string IDENTIFIER = 'iwfWeb.attributeRequirements';
 
@@ -33,7 +33,7 @@ final class AttributeRequirementsRule implements Rule
      * @param list<array{attribute: string, requires: list<string>}> $attributeDefinitions
      */
     public function __construct(
-        private readonly array $attributeDefinitions = [],
+        private array $attributeDefinitions = [],
     ) {}
 
     #[\Override]

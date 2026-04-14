@@ -21,6 +21,7 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Ensures that every controller method with a #[Route] attribute also has a
@@ -28,13 +29,13 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<Class_>
  */
-final class ControllerIsGrantedRule implements Rule
+final readonly class ControllerIsGrantedRule implements Rule
 {
     use AttributeFinderTrait;
     use NamespaceMatcherTrait;
 
     public const string IDENTIFIER = 'iwfWeb.controllerMissingIsGranted';
-    private const string ROUTE_ATTRIBUTE = 'Symfony\Component\Routing\Attribute\Route';
+    private const string ROUTE_ATTRIBUTE = Route::class;
     private const string IS_GRANTED_ATTRIBUTE = 'Symfony\Component\Security\Http\Attribute\IsGranted';
 
     /**
@@ -42,9 +43,9 @@ final class ControllerIsGrantedRule implements Rule
      * @param list<string> $excludedControllers Fully-qualified class names to skip
      */
     public function __construct(
-        private readonly string $controllerNamespace = 'App\Controller',
-        private readonly array $excludedNamespaces = [],
-        private readonly array $excludedControllers = [],
+        private string $controllerNamespace = 'App\Controller',
+        private array $excludedNamespaces = [],
+        private array $excludedControllers = [],
     ) {}
 
     #[\Override]

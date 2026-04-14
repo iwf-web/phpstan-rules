@@ -25,6 +25,8 @@ use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
+use Symfony\Component\Messenger\HandleTrait;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * Ensures controller actions that return $this->handle() use "object" as return type.
@@ -35,17 +37,17 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<Class_>
  */
-final class ControllerHandleReturnTypeRule implements Rule
+final readonly class ControllerHandleReturnTypeRule implements Rule
 {
     use AttributeFinderTrait;
 
     public const string IDENTIFIER = 'iwfWeb.controllerHandleReturnType';
-    private const string ROUTE_ATTRIBUTE = 'Symfony\Component\Routing\Attribute\Route';
-    private const string HANDLE_TRAIT = 'Symfony\Component\Messenger\HandleTrait';
+    private const string ROUTE_ATTRIBUTE = Route::class;
+    private const string HANDLE_TRAIT = HandleTrait::class;
 
     public function __construct(
-        private readonly ReflectionProvider $reflectionProvider,
-        private readonly string $controllerNamespace = 'App\Controller',
+        private ReflectionProvider $reflectionProvider,
+        private string $controllerNamespace = 'App\Controller',
     ) {}
 
     #[\Override]

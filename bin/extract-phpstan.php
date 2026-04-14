@@ -16,7 +16,6 @@
  *
  * Run automatically via composer post-install-cmd / post-update-cmd.
  */
-
 $pharPath = __DIR__.'/../vendor/phpstan/phpstan/phpstan.phar';
 $outputDir = __DIR__.'/../vendor/phpstan/phpstan/src';
 
