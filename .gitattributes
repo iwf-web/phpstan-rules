@@ -1,6 +1,3 @@
-# Created by https://www.richie-bendall.ml/gitattributes-generator/
-# End of https://www.richie-bendall.ml/gitattributes-generator/
-
 # This is what is relevant for composer installs
 .devcontainer export-ignore
 .github export-ignore

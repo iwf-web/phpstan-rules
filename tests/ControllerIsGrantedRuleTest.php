@@ -10,9 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Tests;
+namespace IWF\PhpstanRules\Tests;
 
-use IWF\RectorRules\Controller\ControllerIsGrantedRule;
+use IWF\PhpstanRules\Controller\ControllerIsGrantedRule;
 use PHPStan\Rules\Rule;
 
 /**

@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Coala\DateProvider;
+namespace IWF\PhpstanRules\Coala\DateProvider;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;

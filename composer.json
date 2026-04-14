@@ -22,6 +22,12 @@
             "email": "o.zieschang@iwf.ch",
             "homepage": "https://github.com/Oliver-Zieschang",
             "role": "Maintainer"
+        },
+        {
+            "name": "Xeno Suter",
+            "email": "x.suter@iwf.ch",
+            "homepage": "https://github.com/xeno-suter",
+            "role": "Maintainer"
         }
     ],
     "support": {
@@ -46,12 +52,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IWF\\RectorRules\\": "src/"
+            "IWF\\PhpstanRules\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IWF\\RectorRules\\Tests\\": "tests/"
+            "IWF\\PhpstanRules\\Tests\\": "tests/"
         },
         "classmap": [
             "tests/data/"

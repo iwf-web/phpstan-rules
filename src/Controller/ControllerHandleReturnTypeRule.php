@@ -10,8 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Controller;
+namespace IWF\PhpstanRules\Controller;
 
+use IWF\PhpstanRules\Concern\AttributeFinderTrait;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
@@ -36,9 +37,10 @@ use PHPStan\ShouldNotHappenException;
  */
 final class ControllerHandleReturnTypeRule implements Rule
 {
-    use ControllerRuleHelperTrait;
+    use AttributeFinderTrait;
 
     public const string IDENTIFIER = 'iwf.controllerHandleReturnType';
+    private const string ROUTE_ATTRIBUTE = 'Symfony\Component\Routing\Attribute\Route';
     private const string HANDLE_TRAIT = 'Symfony\Component\Messenger\HandleTrait';
 
     public function __construct(
@@ -46,6 +48,7 @@ final class ControllerHandleReturnTypeRule implements Rule
         private readonly string $controllerNamespace = 'App\Controller',
     ) {}
 
+    #[\Override]
     public function getNodeType(): string
     {
         return Class_::class;
@@ -58,6 +61,7 @@ final class ControllerHandleReturnTypeRule implements Rule
      *
      * @throws ShouldNotHappenException
      */
+    #[\Override]
     public function processNode(Node $node, Scope $scope): array
     {
         if ($node->name === null) {
@@ -84,7 +88,7 @@ final class ControllerHandleReturnTypeRule implements Rule
         $errors = [];
 
         foreach ($node->getMethods() as $method) {
-            if (!$this->hasRouteAttribute($method)) {
+            if (!$this->methodHasAttribute($method, self::ROUTE_ATTRIBUTE)) {
                 continue;
             }
 

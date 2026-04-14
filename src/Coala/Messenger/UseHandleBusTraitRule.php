@@ -10,8 +10,9 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Coala\Messenger;
+namespace IWF\PhpstanRules\Coala\Messenger;
 
+use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\TraitUse;
@@ -30,6 +31,8 @@ use PHPStan\ShouldNotHappenException;
  */
 final class UseHandleBusTraitRule implements Rule
 {
+    use NamespaceMatcherTrait;
+
     public const string IDENTIFIER = 'iwf.useHandleBusTrait';
     private const string SENTINEL_CLASS = 'Coala\MessengerBundle\Messenger\HandleQueryBusTrait';
 
@@ -43,6 +46,7 @@ final class UseHandleBusTraitRule implements Rule
         private readonly array $handleBusTraitNamespaces = ['App\Controller'],
     ) {}
 
+    #[\Override]
     public function getNodeType(): string
     {
         return Class_::class;
@@ -71,16 +75,7 @@ final class UseHandleBusTraitRule implements Rule
             return [];
         }
 
-        $matchesNamespace = false;
-        foreach ($this->handleBusTraitNamespaces as $prefix) {
-            if (str_starts_with($namespace, $prefix)) {
-                $matchesNamespace = true;
-
-                break;
-            }
-        }
-
-        if (!$matchesNamespace) {
+        if (!$this->matchesNamespace($namespace, $this->handleBusTraitNamespaces)) {
             return [];
         }
 

@@ -1,0 +1,63 @@
+parametersSchema:
+    iwf: structure([
+        handleBusTrait: structure([
+            handleBusTraitMappings: arrayOf(string())
+            handleBusTraitNamespaces: listOf(string())
+        ])
+        requireInvalidDataTestGroup: structure([
+            requireInvalidDataTestGroupNamespaces: listOf(string())
+        ])
+        forceDateProvider: structure([
+            allowedFormats: listOf(string())
+        ])
+    ])
+
+parameters:
+    iwf:
+        handleBusTrait:
+            handleBusTraitMappings: []
+            handleBusTraitNamespaces:
+                - 'App\Controller'
+        requireInvalidDataTestGroup:
+            requireInvalidDataTestGroupNamespaces:
+                - 'App\Tests'
+        forceDateProvider:
+            allowedFormats:
+                - 'Y-m-d'
+                - 'Y-m-d H:i:s'
+                - 'Y-m-d\TH:i:s'
+                - 'Y-m-d\TH:i:sP'
+                - 'U'
+
+services:
+    -
+        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderNewRule
+        arguments:
+            allowedFormats: %iwf.forceDateProvider.allowedFormats%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderFuncCallRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWF\PhpstanRules\Coala\DateProvider\ForceDateProviderStaticCallRule
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWF\PhpstanRules\Coala\Messenger\UseHandleBusTraitRule
+        arguments:
+            handleBusTraitMappings: %iwf.handleBusTrait.handleBusTraitMappings%
+            handleBusTraitNamespaces: %iwf.handleBusTrait.handleBusTraitNamespaces%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWF\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule
+        arguments:
+            requireInvalidDataTestGroupNamespaces: %iwf.requireInvalidDataTestGroup.requireInvalidDataTestGroupNamespaces%
+        tags:
+            - phpstan.rules.rule

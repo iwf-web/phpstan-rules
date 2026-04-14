@@ -10,8 +10,8 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-use IWF\RectorRules\Common\MbFunctionUsageRule;
-use IWF\RectorRules\Tests\AbstractRuleTestCase;
+use IWF\PhpstanRules\Common\MbFunctionUsageRule;
+use IWF\PhpstanRules\Tests\AbstractRuleTestCase;
 use PHPStan\Rules\Rule;
 
 /**

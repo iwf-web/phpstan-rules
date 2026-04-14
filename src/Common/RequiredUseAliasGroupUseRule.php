@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Common;
+namespace IWF\PhpstanRules\Common;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -27,7 +27,7 @@ final class RequiredUseAliasGroupUseRule implements Rule
 {
     use RequiredUseAliasMatcherTrait;
 
-    public const string IDENTIFIER = 'iwf.requiredUseAlias';
+    public const string IDENTIFIER = 'iwf.requiredUseAliasGroupUse';
 
     /**
      * @param list<array{namespace: string, alias: string}> $aliasDefinitions

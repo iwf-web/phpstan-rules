@@ -10,7 +10,7 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Common;
+namespace IWF\PhpstanRules\Common;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -24,7 +24,7 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<Node\Expr\FuncCall>
  */
-class MbFunctionUsageRule implements Rule
+final class MbFunctionUsageRule implements Rule
 {
     public const string IDENTIFIER = 'iwf.mbFunctionUsageRule';
 

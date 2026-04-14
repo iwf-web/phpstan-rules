@@ -10,8 +10,10 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\RectorRules\Coala\Testing;
+namespace IWF\PhpstanRules\Coala\Testing;
 
+use IWF\PhpstanRules\Concern\AttributeFinderTrait;
+use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -32,6 +34,9 @@ use PHPStan\ShouldNotHappenException;
  */
 final class RequireInvalidDataTestGroupRule implements Rule
 {
+    use AttributeFinderTrait;
+    use NamespaceMatcherTrait;
+
     public const string IDENTIFIER = 'iwf.requireInvalidDataTestGroup';
     private const string SENTINEL_CLASS = 'Coala\TestingBundle\Tests\Helpers\AssertionHelpersTrait';
     private const string GROUP_ATTRIBUTE = 'PHPUnit\Framework\Attributes\Group';
@@ -71,16 +76,7 @@ final class RequireInvalidDataTestGroupRule implements Rule
             return [];
         }
 
-        $matchesNamespace = false;
-        foreach ($this->requireInvalidDataTestGroupNamespaces as $prefix) {
-            if (str_starts_with($namespace, $prefix)) {
-                $matchesNamespace = true;
-
-                break;
-            }
-        }
-
-        if (!$matchesNamespace) {
+        if (!$this->matchesNamespace($namespace, $this->requireInvalidDataTestGroupNamespaces)) {
             return [];
         }
 
@@ -117,15 +113,7 @@ final class RequireInvalidDataTestGroupRule implements Rule
             return true;
         }
 
-        foreach ($node->attrGroups as $attrGroup) {
-            foreach ($attrGroup->attrs as $attr) {
-                if ($attr->name->toString() === self::TEST_ATTRIBUTE) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return $this->methodHasAttribute($node, self::TEST_ATTRIBUTE);
     }
 
     private function callsAssertFailingValidation(ClassMethod $node): bool
