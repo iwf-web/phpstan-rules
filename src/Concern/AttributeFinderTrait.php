@@ -10,24 +10,31 @@
  * @link      https://github.com/iwf-web/phpstan-rules
  */
 
-namespace IWF\PhpstanRules\Controller;
+namespace IWF\PhpstanRules\Concern;
 
+use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Stmt\ClassMethod;
 
-trait ControllerRuleHelperTrait
+trait AttributeFinderTrait
 {
-    private const string ROUTE_ATTRIBUTE = 'Symfony\Component\Routing\Attribute\Route';
-
-    private function hasRouteAttribute(ClassMethod $method): bool
+    /**
+     * @param array<AttributeGroup> $attrGroups
+     */
+    private function hasAttribute(array $attrGroups, string $fqcn): bool
     {
-        foreach ($method->attrGroups as $attrGroup) {
+        foreach ($attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attr) {
-                if ($attr->name->toString() === self::ROUTE_ATTRIBUTE) {
+                if ($attr->name->toString() === $fqcn) {
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    private function methodHasAttribute(ClassMethod $method, string $fqcn): bool
+    {
+        return $this->hasAttribute($method->attrGroups, $fqcn);
     }
 }

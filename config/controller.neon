@@ -1,0 +1,33 @@
+parametersSchema:
+    iwf: structure([
+        controller: structure([
+            controllerNamespace: string()
+            excludedNamespaces: listOf(string())
+            excludedControllers: listOf(string())
+        ])
+    ])
+
+parameters:
+    iwf:
+        controller:
+            controllerNamespace: 'App\Controller\Foo'
+            excludedNamespaces: []
+            excludedControllers:
+                - 'App\Controller\Api\Security\LoginController'
+
+services:
+    -
+        class: IWF\PhpstanRules\Controller\ControllerHandleReturnTypeRule
+        arguments:
+            controllerNamespace: %iwf.controller.controllerNamespace%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWF\PhpstanRules\Controller\ControllerIsGrantedRule
+        arguments:
+            controllerNamespace: %iwf.controller.controllerNamespace%
+            excludedNamespaces: %iwf.controller.excludedNamespaces%
+            excludedControllers: %iwf.controller.excludedControllers%
+        tags:
+            - phpstan.rules.rule

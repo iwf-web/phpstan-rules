@@ -12,6 +12,8 @@
 
 namespace IWF\PhpstanRules\Controller;
 
+use IWF\PhpstanRules\Concern\AttributeFinderTrait;
+use IWF\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
@@ -28,9 +30,11 @@ use PHPStan\ShouldNotHappenException;
  */
 final class ControllerIsGrantedRule implements Rule
 {
-    use ControllerRuleHelperTrait;
+    use AttributeFinderTrait;
+    use NamespaceMatcherTrait;
 
     public const string IDENTIFIER = 'iwf.controllerMissingIsGranted';
+    private const string ROUTE_ATTRIBUTE = 'Symfony\Component\Routing\Attribute\Route';
     private const string IS_GRANTED_ATTRIBUTE = 'Symfony\Component\Security\Http\Attribute\IsGranted';
 
     /**
@@ -43,6 +47,7 @@ final class ControllerIsGrantedRule implements Rule
         private readonly array $excludedControllers = [],
     ) {}
 
+    #[\Override]
     public function getNodeType(): string
     {
         return Class_::class;
@@ -55,6 +60,7 @@ final class ControllerIsGrantedRule implements Rule
      *
      * @throws ShouldNotHappenException
      */
+    #[\Override]
     public function processNode(Node $node, Scope $scope): array
     {
         if ($node->name === null) {
@@ -76,7 +82,7 @@ final class ControllerIsGrantedRule implements Rule
             return [];
         }
 
-        if ($this->hasIsGrantedAttribute($node->attrGroups)) {
+        if ($this->hasAttribute($node->attrGroups, self::IS_GRANTED_ATTRIBUTE)) {
             return [];
         }
 
@@ -87,11 +93,11 @@ final class ControllerIsGrantedRule implements Rule
                 continue;
             }
 
-            if (!$this->hasRouteAttribute($method)) {
+            if (!$this->methodHasAttribute($method, self::ROUTE_ATTRIBUTE)) {
                 continue;
             }
 
-            if ($this->hasIsGrantedAttribute($method->attrGroups)) {
+            if ($this->hasAttribute($method->attrGroups, self::IS_GRANTED_ATTRIBUTE)) {
                 continue;
             }
 
@@ -110,22 +116,6 @@ final class ControllerIsGrantedRule implements Rule
         }
 
         return $errors;
-    }
-
-    /**
-     * @param array<Node\AttributeGroup> $attrGroups
-     */
-    private function hasIsGrantedAttribute(array $attrGroups): bool
-    {
-        foreach ($attrGroups as $attrGroup) {
-            foreach ($attrGroup->attrs as $attr) {
-                if ($attr->name->toString() === self::IS_GRANTED_ATTRIBUTE) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 
     private function isExcluded(string $fqcn): bool

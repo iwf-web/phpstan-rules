@@ -22,6 +22,12 @@
             "email": "o.zieschang@iwf.ch",
             "homepage": "https://github.com/Oliver-Zieschang",
             "role": "Maintainer"
+        },
+        {
+            "name": "Xeno Suter",
+            "email": "x.suter@iwf.ch",
+            "homepage": "https://github.com/xeno-suter",
+            "role": "Maintainer"
         }
     ],
     "support": {

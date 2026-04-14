@@ -24,7 +24,7 @@ use PHPStan\ShouldNotHappenException;
  *
  * @implements Rule<Node\Expr\FuncCall>
  */
-class MbFunctionUsageRule implements Rule
+final class MbFunctionUsageRule implements Rule
 {
     public const string IDENTIFIER = 'iwf.mbFunctionUsageRule';
 

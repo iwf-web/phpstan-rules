@@ -24,9 +24,6 @@ use PHPStan\Testing\RuleTestCase;
 abstract class AbstractRuleTestCase extends RuleTestCase
 {
     /**
-     * @return list<string>
-     */
-    /**
      * Asserts that the given files produce exactly the expected errors,
      * matched by identifier and line number only (ignoring message text).
      *
