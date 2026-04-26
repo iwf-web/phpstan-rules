@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - name: Build
         env:
@@ -48,8 +46,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - name: Set service name
         run: |
@@ -82,8 +78,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-            fetch-depth: 0
 
       - name: Build
         env:
@@ -117,8 +111,6 @@ jobs:
     needs: [coverage]
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
       - name: Download coverage
         uses: actions/download-artifact@v8
         with:
