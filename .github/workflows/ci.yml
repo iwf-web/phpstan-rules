@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - name: Build
         env:
@@ -48,8 +46,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - name: Set service name
         run: |
@@ -82,8 +78,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        with:
-            fetch-depth: 0
 
       - name: Build
         env:
@@ -104,7 +98,7 @@ jobs:
         run: bin/test.sh --coverage 8.3
 
       - name: Upload coverage
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: coverage.xml
@@ -117,10 +111,8 @@ jobs:
     needs: [coverage]
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
       - name: Download coverage
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: coverage-report
       - name: SonarQube Scan

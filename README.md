@@ -30,7 +30,7 @@ includes:
 
 ### Configuration
 
-Several rules require or accept configuration parameters under the `iwf` key.
+Several rules require or accept configuration parameters under the `iwfWeb` key.
 
 #### Controller rules
 
