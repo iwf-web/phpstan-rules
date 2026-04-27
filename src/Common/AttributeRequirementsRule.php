@@ -31,9 +31,11 @@ final readonly class AttributeRequirementsRule implements Rule
 
     /**
      * @param list<array{attribute: string, requires: list<string>}> $attributeDefinitions
+     * @param list<string>                                           $excludedClasses      Fully-qualified class names to skip
      */
     public function __construct(
         private array $attributeDefinitions = [],
+        private array $excludedClasses = [],
     ) {}
 
     #[\Override]
@@ -53,6 +55,11 @@ final readonly class AttributeRequirementsRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         if ($this->attributeDefinitions === []) {
+            return [];
+        }
+
+        $classReflection = $scope->getClassReflection();
+        if ($classReflection !== null && \in_array($classReflection->getName(), $this->excludedClasses, true)) {
             return [];
         }
 
