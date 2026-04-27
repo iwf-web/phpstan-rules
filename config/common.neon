@@ -9,6 +9,8 @@ parameters:
                 - { namespace: 'Symfony\Component\Validator\Constraints', alias: 'Assert' }
                 - { namespace: 'Symfony\Component\Serializer\Attribute', alias: 'Serializer' }
         attributeRequirements:
+            excludedClasses:
+                - 'App\Controller\Api\Security\LoginController'
             attributeDefinitions:
                 -
                     attribute: 'Symfony\Component\Routing\Attribute\Route'
@@ -40,6 +42,7 @@ services:
         class: IWFWeb\PhpstanRules\Common\AttributeRequirementsRule
         arguments:
             attributeDefinitions: %iwfWeb.attributeRequirements.attributeDefinitions%
+            excludedClasses: %iwfWeb.attributeRequirements.excludedClasses%
         tags:
             - phpstan.rules.rule
 
