@@ -7,6 +7,7 @@ parametersSchema:
             ]))
         ])
         attributeRequirements: structure([
+            excludedClasses: listOf(string())
             attributeDefinitions: listOf(structure([
                 attribute: string()
                 requires: listOf(string())
