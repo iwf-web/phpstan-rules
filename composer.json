@@ -76,10 +76,12 @@
             "@composer exec -- php-cs-fixer fix --dry-run --diff"
         ],
         "test": [
+            "@phpstan:smoke",
             "@phpstan",
             "@phpunit"
         ],
         "test:ci": [
+            "@phpstan:smoke",
             "@phpstan:ci",
             "@phpunit"
         ],
@@ -87,6 +89,7 @@
         "phpunit:coverage": "@composer exec -- phpunit --coverage-clover coverage.xml",
         "phpstan": "@composer exec -- phpstan --memory-limit=256M",
         "phpstan:ci": "@composer exec -- phpstan --memory-limit=256M --no-progress --error-format=github",
+        "phpstan:smoke": "@composer exec -- phpstan --memory-limit=256M --no-progress --configuration=tests/smoke/phpstan-smoke.neon.dist",
         "rector": [
             "@composer exec -- rector",
             "@lint"
