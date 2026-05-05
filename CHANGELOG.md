@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/iwf-web/phpstan-rules/compare/1.1.0...1.1.1) (2026-04-28)
+
+
+### 🐛 Bug Fixes
+
+* added missing configuration schema ([#18](https://github.com/iwf-web/phpstan-rules/issues/18)) ([0058b6c](https://github.com/iwf-web/phpstan-rules/commit/0058b6caf51b254046fee9365f07f03c107b93d8))
+
 ## [1.1.0](https://github.com/iwf-web/phpstan-rules/compare/1.0.0...1.1.0) (2026-04-27)
 
 
