@@ -15,6 +15,11 @@ source "$SCRIPT_DIR/_env.sh"
 COVERAGE=false
 VERSION=""
 
+# Promote Xdebug to debug mode when the user opted in via XDEBUG_TRIGGER/XDEBUG_SESSION.
+if [[ -n "${XDEBUG_TRIGGER:-}" || -n "${XDEBUG_SESSION:-}" ]]; then
+    export XDEBUG_MODE="${XDEBUG_MODE:-debug}"
+fi
+
 for arg in "$@"; do
     case "$arg" in
         --coverage) COVERAGE=true ;;

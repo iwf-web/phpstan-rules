@@ -6,6 +6,9 @@ x-base: &base
     - "host.docker.internal:host-gateway"
   environment:
     PHP_IDE_CONFIG: serverName=iwf-phpstan-rules # for PHPStorm debugging
+    XDEBUG_MODE: "${XDEBUG_MODE:-off}"
+    XDEBUG_TRIGGER: "${XDEBUG_TRIGGER:-}"
+    XDEBUG_SESSION: "${XDEBUG_SESSION:-}"
   command: >
     sh -c "cp /composer-lock/composer.lock /app/composer.lock 2>/dev/null;
            composer update &&
