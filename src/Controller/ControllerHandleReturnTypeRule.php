@@ -13,6 +13,7 @@
 namespace IWFWeb\PhpstanRules\Controller;
 
 use IWFWeb\PhpstanRules\Concern\AttributeFinderTrait;
+use IWFWeb\PhpstanRules\Concern\NamespaceMatcherTrait;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
@@ -40,6 +41,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final readonly class ControllerHandleReturnTypeRule implements Rule
 {
     use AttributeFinderTrait;
+    use NamespaceMatcherTrait;
 
     public const string IDENTIFIER = 'iwfWeb.controllerHandleReturnType';
     private const string ROUTE_ATTRIBUTE = Route::class;
@@ -71,7 +73,7 @@ final readonly class ControllerHandleReturnTypeRule implements Rule
         }
 
         $namespace = $scope->getNamespace();
-        if ($namespace === null || !str_starts_with($namespace, $this->controllerNamespace)) {
+        if ($namespace === null || !$this->matchesNamespace($namespace, [$this->controllerNamespace])) {
             return [];
         }
 
