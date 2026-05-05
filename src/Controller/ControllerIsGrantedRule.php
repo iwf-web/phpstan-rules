@@ -22,6 +22,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Ensures that every controller method with a #[Route] attribute also has a
@@ -36,7 +37,7 @@ final readonly class ControllerIsGrantedRule implements Rule
 
     public const string IDENTIFIER = 'iwfWeb.controllerMissingIsGranted';
     private const string ROUTE_ATTRIBUTE = Route::class;
-    private const string IS_GRANTED_ATTRIBUTE = 'Symfony\Component\Security\Http\Attribute\IsGranted';
+    private const string IS_GRANTED_ATTRIBUTE = IsGranted::class;
 
     /**
      * @param list<string> $excludedNamespaces  Namespace prefixes to skip

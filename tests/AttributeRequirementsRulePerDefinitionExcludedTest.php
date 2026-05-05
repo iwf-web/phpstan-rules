@@ -12,6 +12,7 @@
 
 namespace IWFWeb\PhpstanRules\Tests;
 
+use App\Controller\Api\PerDefinition\ExcludedForRouteController;
 use IWFWeb\PhpstanRules\Common\AttributeRequirementsRule;
 use OpenApi\Attributes\Tag;
 use PHPStan\Rules\Rule;
@@ -23,7 +24,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @internal
  */
-final class AttributeRequirementsRuleTest extends AbstractRuleTestCase
+final class AttributeRequirementsRulePerDefinitionExcludedTest extends AbstractRuleTestCase
 {
     protected function getRule(): Rule
     {
@@ -35,22 +36,16 @@ final class AttributeRequirementsRuleTest extends AbstractRuleTestCase
                         Tag::class,
                         IsGranted::class,
                     ],
+                    'excludedClasses' => [ExcludedForRouteController::class],
                 ],
             ],
         );
     }
 
-    public function testMissingRequiredAttributes(): void
+    public function testPerDefinitionExclusionSkipsOnlyTheExcludedClass(): void
     {
-        $files = [__DIR__.'/data/attribute-requirements.php'];
+        $files = [__DIR__.'/data/attribute-requirements-per-definition-excluded.php'];
         $errors = $this->gatherAnalyserErrors($files);
         self::assertRuleErrorsByAnnotation($errors, $files);
-    }
-
-    public function testNoErrorsForCorrectCode(): void
-    {
-        $files = [__DIR__.'/data/attribute-requirements-correct.php'];
-        $errors = $this->gatherAnalyserErrors($files);
-        self::assertNoRuleErrors($errors);
     }
 }

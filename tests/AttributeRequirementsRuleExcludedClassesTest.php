@@ -14,8 +14,10 @@ namespace IWFWeb\PhpstanRules\Tests;
 
 use App\Controller\Api\Security\LoginController;
 use IWFWeb\PhpstanRules\Common\AttributeRequirementsRule;
+use OpenApi\Attributes\Tag;
 use PHPStan\Rules\Rule;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * @extends AbstractRuleTestCase<AttributeRequirementsRule>
@@ -31,8 +33,8 @@ final class AttributeRequirementsRuleExcludedClassesTest extends AbstractRuleTes
                 [
                     'attribute' => Route::class,
                     'requires' => [
-                        'OpenApi\Attributes\Tag',
-                        'Symfony\Component\Security\Http\Attribute\IsGranted',
+                        Tag::class,
+                        IsGranted::class,
                     ],
                 ],
             ],

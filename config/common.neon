@@ -9,14 +9,15 @@ parameters:
                 - { namespace: 'Symfony\Component\Validator\Constraints', alias: 'Assert' }
                 - { namespace: 'Symfony\Component\Serializer\Attribute', alias: 'Serializer' }
         attributeRequirements:
-            excludedClasses:
-                - 'App\Controller\Api\Security\LoginController'
+            excludedClasses: []
             attributeDefinitions:
                 -
                     attribute: 'Symfony\Component\Routing\Attribute\Route'
                     requires:
                         - 'OpenApi\Attributes\Tag'
                         - 'Symfony\Component\Security\Http\Attribute\IsGranted'
+                    excludedClasses:
+                        - 'App\Controller\Api\Security\LoginController'
 
 services:
     -

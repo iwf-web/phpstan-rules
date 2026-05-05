@@ -12,6 +12,8 @@
 
 namespace IWFWeb\PhpstanRules\Tests;
 
+use App\Controller\Api\Combined\GloballyExcludedController;
+use App\Controller\Api\Combined\PerDefinitionExcludedController;
 use IWFWeb\PhpstanRules\Common\AttributeRequirementsRule;
 use OpenApi\Attributes\Tag;
 use PHPStan\Rules\Rule;
@@ -23,7 +25,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  *
  * @internal
  */
-final class AttributeRequirementsRuleTest extends AbstractRuleTestCase
+final class AttributeRequirementsRuleCombinedExclusionTest extends AbstractRuleTestCase
 {
     protected function getRule(): Rule
     {
@@ -35,22 +37,17 @@ final class AttributeRequirementsRuleTest extends AbstractRuleTestCase
                         Tag::class,
                         IsGranted::class,
                     ],
+                    'excludedClasses' => [PerDefinitionExcludedController::class],
                 ],
             ],
+            excludedClasses: [GloballyExcludedController::class],
         );
     }
 
-    public function testMissingRequiredAttributes(): void
+    public function testGlobalAndPerDefinitionExclusionsBothApply(): void
     {
-        $files = [__DIR__.'/data/attribute-requirements.php'];
+        $files = [__DIR__.'/data/attribute-requirements-combined-excluded.php'];
         $errors = $this->gatherAnalyserErrors($files);
         self::assertRuleErrorsByAnnotation($errors, $files);
-    }
-
-    public function testNoErrorsForCorrectCode(): void
-    {
-        $files = [__DIR__.'/data/attribute-requirements-correct.php'];
-        $errors = $this->gatherAnalyserErrors($files);
-        self::assertNoRuleErrors($errors);
     }
 }
