@@ -30,8 +30,12 @@ final readonly class AttributeRequirementsRule implements Rule
     public const string IDENTIFIER = 'iwfWeb.attributeRequirements';
 
     /**
-     * @param list<array{attribute: string, requires: list<string>}> $attributeDefinitions
-     * @param list<string>                                           $excludedClasses      Fully-qualified class names to skip
+     * @param list<array{
+     *   attribute: class-string, // Fully-qualified target attribute
+     *   requires: list<class-string>, // List of fully-qualified attributes to require be present upon target discovery
+     *   excludedClasses?: list<class-string>, // Fully-qualified class names to skip
+     * }> $attributeDefinitions
+     * @param list<class-string> $excludedClasses Fully-qualified class names to skip
      */
     public function __construct(
         private array $attributeDefinitions = [],
@@ -73,10 +77,16 @@ final readonly class AttributeRequirementsRule implements Rule
 
         $errors = [];
 
+        $className = $classReflection?->getName();
+
         foreach ($this->attributeDefinitions as $requirement) {
             $triggerAttribute = $requirement['attribute'];
 
             if (!\in_array($triggerAttribute, $presentAttributes, true)) {
+                continue;
+            }
+
+            if ($className !== null && \in_array($className, $requirement['excludedClasses'] ?? [], true)) {
                 continue;
             }
 

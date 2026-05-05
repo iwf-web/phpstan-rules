@@ -30,7 +30,10 @@ final class RequiredUseAliasGroupUseRule implements Rule
     public const string IDENTIFIER = 'iwfWeb.requiredUseAliasGroupUse';
 
     /**
-     * @param list<array{namespace: string, alias: string}> $aliasDefinitions
+     * @param list<array{
+     *   namespace: string, // Namespace definition to act as target
+     *   alias: string,
+     * }> $aliasDefinitions
      */
     public function __construct(array $aliasDefinitions)
     {

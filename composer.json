@@ -73,7 +73,7 @@
         "lint": "@composer exec -- php-cs-fixer fix",
         "lint:check": [
             "find . -name '*.php' -not -path './vendor/*' -not -path './tests/data/*' | xargs -n1 php -l",
-            "@composer exec -- php-cs-fixer fix --dry-run --diff"
+            "@lint --dry-run --diff"
         ],
         "test": [
             "@phpstan:smoke",
@@ -86,10 +86,10 @@
             "@phpunit"
         ],
         "phpunit": "@composer exec -- phpunit",
-        "phpunit:coverage": "@composer exec -- phpunit --coverage-clover coverage.xml",
+        "phpunit:coverage": "@phpunit --coverage-clover coverage.xml",
         "phpstan": "@composer exec -- phpstan --memory-limit=256M",
-        "phpstan:ci": "@composer exec -- phpstan --memory-limit=256M --no-progress --error-format=github",
-        "phpstan:smoke": "@composer exec -- phpstan --memory-limit=256M --no-progress --configuration=tests/smoke/phpstan-smoke.neon.dist",
+        "phpstan:ci": "@phpstan --no-progress --error-format=github",
+        "phpstan:smoke": "@phpstan --no-progress --configuration=tests/smoke/phpstan-smoke.neon.dist",
         "rector": [
             "@composer exec -- rector",
             "@lint"

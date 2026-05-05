@@ -71,6 +71,10 @@ parameters:
                     requires:
                         - 'OpenApi\Attributes\Tag'
                         - 'Symfony\Component\Security\Http\Attribute\IsGranted'
+                    excludedClasses:
+                        - 'App\Controller\Api\Security\LoginController'
+            excludedClasses:
+                - 'App\Controller\Api\Security\LoginController'
 ```
 
 #### Force DateProvider (requires `coala/date-provider-bundle`)
