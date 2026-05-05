@@ -9,14 +9,16 @@ Custom PHPStan rules library (`iwf-web/phpstan-rules`) enforcing coding standard
 ## Commands
 
 ```bash
-bin/test.sh              # Run PHPStan + PHPUnit (local PHP or Docker fallback)
-bin/test.sh 8.4          # Target specific PHP version
-bin/lint.sh              # Auto-fix code style (PHP CS Fixer)
-composer lint:check      # Check style without modifying (CI mode)
-composer phpstan         # PHPStan only
-composer phpunit         # PHPUnit only
-composer test            # Both PHPStan + PHPUnit
-XDEBUG_TRIGGER=1 bin/test.sh  # Debug with Xdebug
+bin/test.sh # Run PHPStan + PHPUnit (Docker, all PHP versions)
+bin/test.sh 8.4 # Target specific PHP version
+bin/build.sh # Rebuild all Docker test images (run after Dockerfile changes)
+bin/build.sh 8.4 # Rebuild single PHP version image
+bin/lint.sh # Auto-fix code style (PHP CS Fixer)
+bin/composer.sh lint:check # Check style without modifying (CI mode)
+bin/composer.sh phpstan # PHPStan only
+bin/composer.sh phpunit # PHPUnit only
+bin/composer.sh test # Both PHPStan + PHPUnit
+XDEBUG_TRIGGER=1 bin/test.sh # Debug with Xdebug
 ```
 
 ## Architecture

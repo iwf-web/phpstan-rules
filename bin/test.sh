@@ -30,8 +30,16 @@ done
 run_docker() {
     local service="${1:-}"
     if [[ -n "$service" ]]; then
-        echo "==> PHP ${service} (Docker)"
-        docker compose -f "$COMPOSE_FILE" up "php${service//./}" --remove-orphans
+        local svc="php${service//./}"
+        printf '\n===== %s =====\n' "$svc"
+        local rc=0
+        docker compose --ansi never -f "$COMPOSE_FILE" run --rm -T "$svc" || rc=$?
+        if [[ $rc -eq 0 ]]; then
+            printf '===== %s OK =====\n' "$svc"
+        else
+            printf '===== %s FAIL (exit %d) =====\n' "$svc" "$rc"
+        fi
+        return $rc
     else
         exec "$PROJECT_DIR/docker/test.sh"
     fi
