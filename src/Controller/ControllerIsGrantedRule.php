@@ -74,7 +74,7 @@ final readonly class ControllerIsGrantedRule implements Rule
         }
 
         $namespace = $scope->getNamespace();
-        if ($namespace === null || !str_starts_with($namespace, $this->controllerNamespace)) {
+        if ($namespace === null || !$this->matchesNamespace($namespace, [$this->controllerNamespace])) {
             return [];
         }
 
@@ -126,12 +126,15 @@ final readonly class ControllerIsGrantedRule implements Rule
             return true;
         }
 
-        foreach ($this->excludedNamespaces as $ns) {
-            if (str_starts_with($fqcn, $ns)) {
-                return true;
-            }
-        }
+        $classNamespace = $this->extractNamespace($fqcn);
 
-        return false;
+        return $classNamespace !== null && $this->matchesNamespace($classNamespace, $this->excludedNamespaces);
+    }
+
+    private function extractNamespace(string $fqcn): ?string
+    {
+        $pos = strrpos($fqcn, '\\');
+
+        return $pos === false ? null : substr($fqcn, 0, $pos);
     }
 }

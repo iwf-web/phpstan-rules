@@ -20,7 +20,13 @@ trait NamespaceMatcherTrait
     private function matchesNamespace(string $namespace, array $prefixes): bool
     {
         foreach ($prefixes as $prefix) {
-            if (str_starts_with($namespace, $prefix)) {
+            $prefix = rtrim($prefix, '\\');
+
+            if ($prefix === '') {
+                continue;
+            }
+
+            if ($namespace === $prefix || str_starts_with($namespace, $prefix.'\\')) {
                 return true;
             }
         }
