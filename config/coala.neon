@@ -14,6 +14,9 @@ parameters:
                 - 'Y-m-d\TH:i:s'
                 - 'Y-m-d\TH:i:sP'
                 - 'U'
+        serializerIsGrantedSubjectIgnore:
+            entityReferenceAttributes:
+                - { attribute: 'App\Validator\Doctrine\EntityExists', argument: 'entityClass' }
 
 services:
     -
@@ -45,5 +48,12 @@ services:
         class: IWFWeb\PhpstanRules\Coala\Testing\RequireInvalidDataTestGroupRule
         arguments:
             requireInvalidDataTestGroupNamespaces: %iwfWeb.requireInvalidDataTestGroup.requireInvalidDataTestGroupNamespaces%
+        tags:
+            - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Coala\RestControl\SerializerIsGrantedSubjectIgnoreRule
+        arguments:
+            entityReferenceAttributes: %iwfWeb.serializerIsGrantedSubjectIgnore.entityReferenceAttributes%
         tags:
             - phpstan.rules.rule

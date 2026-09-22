@@ -103,6 +103,16 @@ parameters:
                 - 'App\Controller'
 ```
 
+#### Serializer subject ignore (requires `coala/rest-control-bundle`)
+
+```neon
+parameters:
+    iwfWeb:
+        serializerIsGrantedSubjectIgnore:
+            entityReferenceAttributes:
+                - { attribute: 'App\Validator\Doctrine\EntityExists', argument: 'entityClass' }
+```
+
 #### Require invalid-data-test group (requires `coala/testing-bundle`)
 
 ```neon
@@ -245,6 +255,47 @@ $now = $this->dateProvider->now();
 #### `iwfWeb.useHandleBusTrait`
 
 In configured namespaces, if a class defines a setter method that corresponds to a configured handle-bus trait (e.g. `setQueryBus()`), it must use the matching trait instead of defining the setter manually.
+
+---
+
+### Coala — RestControl
+
+> This rule is only active when `Coala\RestControlBundle` is present in the project.
+
+#### `iwfWeb.serializerIsGrantedSubjectIgnore` — Request body must not overwrite the authorized subject
+
+A controller method guarded by `#[IsGranted(..., subject: 'x')]` that deserializes the request body via `AppSerializer::deserializeIntoExistingObject()` or `AppSerializer::deserialize()` must mark every message property derived from that subject with `#[Ignore]`. Without it, a crafted request body can replace the value the voter just authorized.
+
+A property counts as subject-derived when any of these holds:
+
+- the controller wires it from the subject, via a constructor argument (`new Cmd($workflow->getId())`) or a property assignment (`$cmd->workflowId = $workflow->getId()`)
+- it is named `{subject}` or `{subject}Id`
+- its native type is the subject parameter's class
+- it carries a configured entity-reference validator whose argument names the subject parameter's class, e.g. `#[EntityExists(entityClass: Workflow::class)]` (see `entityReferenceAttributes`)
+
+Only publicly writable properties (public, or private with a `set{Name}()` method) are considered. Overwriting the property after deserialization is *not* accepted as a fix; the rule is deliberately strict.
+
+```php
+// ❌ flagged — body may contain {"employerId": 42}
+#[IsGranted('EMPLOYEE_CREATE', subject: 'employer')]
+public function __invoke(Request $request, Employer $employer): object
+{
+    $message = $this->serializer->deserializeIntoExistingObject($request->getContent(), new CreateEmployeeCommand());
+    // ...
+}
+
+class CreateEmployeeCommand
+{
+    public int $employerId;
+}
+
+// ✅ correct
+class CreateEmployeeCommand
+{
+    #[Ignore]
+    public int $employerId;
+}
+```
 
 ---
 
