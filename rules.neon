@@ -29,6 +29,12 @@ parametersSchema:
         forceDateProvider: structure([
             allowedFormats: listOf(string())
         ])
+        serializerIsGrantedSubjectIgnore: structure([
+            entityReferenceAttributes: listOf(structure([
+                attribute: string()
+                argument: string()
+            ]))
+        ])
     ])
 
 includes:
