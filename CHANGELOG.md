@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/iwf-web/phpstan-rules/compare/1.2.0...1.3.0) (2026-11-18)
+
+
+### ✨ Features
+
+* added SerializerIsGrantedSubjectIgnoreRule ([15269b8](https://github.com/iwf-web/phpstan-rules/commit/15269b819bf084a874d1322bd9185f58c4fdd4a6))
+
+
+### 🐛 Bug Fixes
+
+* tightened namespace exclusion matching ([048c2df](https://github.com/iwf-web/phpstan-rules/commit/048c2df5f5ef5773178a102b6ee0147cb56a1925))
+
 ## [1.2.0](https://github.com/iwf-web/phpstan-rules/compare/1.1.1...1.2.0) (2026-05-05)
 
 
