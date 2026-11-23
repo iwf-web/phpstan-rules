@@ -51,3 +51,8 @@ services:
         class: IWFWeb\PhpstanRules\Common\MbFunctionUsageRule
         tags:
             - phpstan.rules.rule
+
+    -
+        class: IWFWeb\PhpstanRules\Common\DeclareStrictTypesRule
+        tags:
+            - phpstan.rules.rule

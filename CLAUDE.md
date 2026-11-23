@@ -34,7 +34,7 @@ Rules implement `PHPStan\Rules\Rule<NodeType>`. Each rule:
 
 ### Rule Categories & Config
 
-- **`src/Common/`** → `config/common.neon` — Universal rules (mb functions, annotations, use aliases, attribute requirements)
+- **`src/Common/`** → `config/common.neon` — Universal rules (mb functions, annotations, use aliases, attribute requirements, strict types)
 - **`src/Controller/`** → `config/controller.neon` — Symfony controller rules (IsGranted, HandleTrait return types)
 - **`src/Coala/`** → `config/coala.neon` — Rules for optional Coala packages (DateProvider, Messenger, Testing). These silently skip when their target package isn't installed, checked via `ReflectionProvider::hasClass()`
 
