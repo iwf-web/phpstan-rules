@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/iwf-web/phpstan-rules/compare/1.3.0...1.4.0) (2026-11-23)
+
+
+### ✨ Features
+
+* added DeclareStrictTypesRule ([3fdc5e0](https://github.com/iwf-web/phpstan-rules/commit/3fdc5e0154683974f2c17778983ce462ef5db95d))
+
 ## [1.3.0](https://github.com/iwf-web/phpstan-rules/compare/1.2.0...1.3.0) (2026-11-18)
 
 
