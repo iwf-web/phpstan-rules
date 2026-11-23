@@ -190,6 +190,20 @@ public function list(): object { ... }
 
 ---
 
+#### `iwfWeb.declareStrictTypes` — Strict types declaration
+
+Every file must start with `declare(strict_types=1)`. A leading shebang line is allowed.
+
+```php
+// ❌ flagged
+<?php
+
+// ✅ correct
+<?php declare(strict_types=1);
+```
+
+---
+
 ### Controller
 
 #### `iwfWeb.controllerHandleReturnType` — Controller handle() return type
